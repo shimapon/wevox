@@ -1,9 +1,9 @@
 # wevox
 techtrainのmissionです．
 
-# api_webox
+## api_webox
 RailsAPIサーバーのファイル．
 山札の情報を渡す
 
-# webox_gameapp
+## webox_gameapp
 Reactのフロントアプリ．
