@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const server = 'http://localhost:4000/api/v1/posts';
 
-// 関数コンポーメント
+// カード一枚のコンポーネント
 function Card(props){
   return(
     <button className="card" onClick={props.onClick}>
@@ -14,19 +14,39 @@ function Card(props){
   );
 }
 
-class HandList extends React.Component {
+// トラッシュにあるカード一枚のコンポーネント
+function TrashCard(props){
+  var btnstyle = {
+    left: props.num*20,
+    zIndex: props.num,
+  };
 
+  if(props.num===0){
+    btnstyle = {
+      position: "relative",
+    };
+  }
+
+  return(
+    <button className="trashcard" style={btnstyle}>
+      {props.value}
+    </button>
+  );
+}
+
+// 手札のコンポーネント
+class HandList extends React.Component {
   renderSquare(i) {
     return (
       <Card
         value={this.props.cards[i]}
         onClick={()=>this.props.onClick(i)}
+        key={'cardList' + i}
       />
     );
   }
 
   render() {
-    const num_cards=this.props.cards.length
     return (
       <div>
         <div className="board-row">
@@ -39,79 +59,129 @@ class HandList extends React.Component {
   }
 }
 
+// 山札のコンポーネント
+function Deck(props){
+  return(
+    <div className="decklist">
+      <button className="deckcard" onClick={props.onClick}>
+        <span className="balloon">残り{props.value}枚</span>
+      </button>
+      <button className="deckcard2" onClick={props.onClick}>
+      </button>
+      <button className="deckcard3" onClick={props.onClick}>
+      </button>
+      <button className="deckcard4" onClick={props.onClick}>
+      </button>
+    </div>
+  );
+}
 
+// トラッシュのコンポーネント
+class Trash extends React.Component {
+  renderSquare(i) {
+    return (
+      <TrashCard
+        num={i}
+        value={this.props.trash[i]}
+        key={'trashList' + i}
+      />
+    );
+  }
+
+  render() {
+    return (
+      <div>
+        <div className="trash-row">
+          {this.props.trash.map((data, index) => {
+            return this.renderSquare(index)
+          })}
+        </div>
+      </div>
+    );
+  }
+}
+
+
+//　親コンポーネント，Game
 class Game extends React.Component {
   constructor(props){
     super(props)
     this.state = {
       cards: Array(5).fill(null),
-      deck: this.handleClickGet(),
+      deck: [],
       trash: [],
     }
+  }
+
+  // Component が Mount された後に実行されるメソッド
+  componentDidMount() {
+    console.log("start");
+    this.getDeck();
+  }
+
+  getDeck(){
+    var deck=[]
+    axios.get(server)
+      .then((res) => {
+        console.log(res);
+        for (var i=0;i<res.data.data.length;i++){
+          deck.push(res.data.data[i].title);
+        }
+        this.setState({deck: deck});
+        this.setState({cards:random(deck,5)})
+      })
+      .catch(console.error);
   }
 
   handleClick(i){
     console.log(i);
     var tmp = this.state.cards
     var a;
+    if (checkFinish(this.state.deck.length) && this.state.cards.length===5){
+      return;
+    }
     a=this.state.trash
     a.push(tmp[i])
-
     tmp.splice(i, 1); // ２番目から１つ削除
     this.setState({
       cards:tmp,
       trash:a,
     })
-  }
-
-  handleClick2(){
-    this.setState({cards:random(this.state.deck,5)})
+    this.handleClick3();
   }
 
   handleClick3(){
     var h = this.state.cards
     var a;
     var b
+    if (this.state.cards.length!==5 || this.state.deck.length===0){
+      return;
+    }
     a=random(this.state.deck,1);
     b=h.concat(a)
     this.setState({cards:b})
   }
 
-  handleClickGet(event){
-    var deck=[]
-    axios.get(server)
-      .then((res) => {
-        console.log(res);
-        for (var i=0;i<res.data.data.length;i++){
-          console.log(res.data.data[i].title);
-          deck.push(res.data.data[i].title);
-        }
-      })
-      .catch(console.error);
-
-      // "this.setState is not a function"と怒られる
-      // setTimeout(function() {
-      //   this.setState({cards:random(deck,5)})
-      // }, 500);
-    return deck
-  }
-
-
   render() {
-    const trash = this.state.trash;
-
     return (
       <div className="game">
         <div>
-        <button onClick={()=>this.handleClick2()}>押すと読み込みます</button>
-        </div>
-        <div>
-        <p>{trash}</p>
-        </div>
-        <div>
-        <button onClick={()=>this.handleClick3()}>山札</button>
+          <header>
+            <h1 className="headline">
+              <p>wevox values card</p>
+            </h1>
+          </header>
         </div>
         <div className="game-board">
+          <div className="decktrash">
+            <Deck
+              value={this.state.deck.length}
+              onClick={()=>this.handleClick3()}
+            />
+            <Trash
+              trash={this.state.trash}
+            />
+          </div>
           <HandList
             cards={this.state.cards}
             onClick={(i)=>this.handleClick(i)}
@@ -125,6 +195,8 @@ class Game extends React.Component {
 
 
 // ========================================
+
+// 配列から要素をcount個ランダムに取得する．
 function random(arr, count) {
     if (!count) count = 1;
  
@@ -137,6 +209,15 @@ function random(arr, count) {
  
     return data;
 };
+
+function checkFinish(decklength) {
+  if (decklength===0) {
+    console.log("finish");
+    return 1;
+  }
+  return null;
+}
+
 
 
 

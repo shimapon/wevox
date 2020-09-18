@@ -1,15 +1,18 @@
 @import url('https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c');
 
-
 body {
   font: 14px "Century Gothic", Futura, sans-serif;
   margin: 20px;
 }
 
-.board-row:after {
-  clear: both;
-  content: "";
-  display: table;
+.board-row{
+  margin-top: 50px;
+}
+
+.trash-row{
+  float: left;
+  margin-left: 50px;
+  position: relative;
 }
 
 .card {
@@ -29,6 +32,129 @@ body {
   font-family: 'M PLUS Rounded 1c', sans-serif;
 }
 
+.decktrash {
+  margin-top: 20px;
+}
+
+.decklist {
+  position: relative;
+}
+
+.trashcard {
+  background: #fff;
+  height: 240px;
+  width: 180px;
+  margin-right: 20px;
+  font-size: 12px;
+  border: 1px solid #999;
+  float: left;
+  font-weight: bold;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  border-radius: 6px;/*角の丸み*/
+  box-shadow: 5px 5px 5px 0px rgba(0,0,0,.12), 0 2px 2px 0 rgba(0,0,0,.24);/*影*/
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  z-index: -1;
+  position: absolute;
+}
+
+.trashcard:hover {
+  z-index: 200;
+}
+
+.deckcard {
+  z-index: 10;
+  background-image: url("./valuecard-background.png");
+  background-size:cover;
+  height: 240px;
+  width: 180px;
+  margin-right: 20px;
+  border: 1px solid #999;
+  float: left;
+  font-weight: bold;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  border-radius: 6px;/*角の丸み*/
+  box-shadow: 5px 5px 5px 0px rgba(0,0,0,.12), 0 2px 2px 0 rgba(0,0,0,.24);/*影*/
+}
+
+.deckcard:hover .balloon{/*ホバー時*/
+  display: inline;
+}
+
+.balloon {
+  position: absolute;                /* 親要素を基準 */
+  display: none;                        /* 要素を非表示 */
+  font-size: 60px;
+  z-index: 300;
+}
+
+.deckcard2 {
+  z-index: -1;
+  position: absolute;
+  left: 5px;
+  background-image: url("./valuecard-background.png");
+  background-size:cover;
+  height: 240px;
+  width: 180px;
+  margin-right: 20px;
+  border: 1px solid #999;
+  float: left;
+  margin-top: -1px;
+  padding: 0;
+  border-radius: 6px;/*角の丸み*/
+}
+.deckcard3 {
+  z-index: -2;
+  position: absolute;
+  left: 9px;
+  background-image: url("./valuecard-background.png");
+  background-size:cover;
+  height: 240px;
+  width: 180px;
+  margin-right: 20px;
+  border: 1px solid #999;
+  float: left;
+  margin-top: -1px;
+  padding: 0;
+  border-radius: 6px;/*角の丸み*/
+}
+.deckcard4 {
+  z-index: -3;
+  position: absolute;
+  left: 13px;
+  background-image: url("./valuecard-background.png");
+  background-size:cover;
+  height: 240px;
+  width: 180px;
+  margin-right: 20px;
+  border: 1px solid #999;
+  float: left;
+  margin-top: -1px;
+  padding: 0;
+  border-radius: 6px;/*角の丸み*/
+  box-shadow: 5px 5px 5px 0px rgba(0,0,0,.12), 0 2px 2px 0 rgba(0,0,0,.24);/*影*/
+}
+
+.game-board{
+  display: flex;
+  flex-direction: column;
+}
+
 .card:hover {/*ホバー時*/
   box-shadow: 7px 7px 5px 0 rgba(0,0,0,.14), 0 1px 7px 0 rgba(0,0,0,.12), 0 2px 4px -1px rgba(0,0,0,.2);
+}
+
+header {
+  width: 100%;
+  padding: 15px 0;
+  margin: 0 auto;
+  text-align: center;
+  background-color: #bcc8f5;
+
+}
+header .headline{
+  font-size: 32px;
 }
