@@ -15,6 +15,28 @@ body {
   position: relative;
 }
 
+.box {
+  margin       : auto;
+  width        : 400px;
+  height       : 100px;
+  background   : #9e9e9ea8;
+  position: absolute;
+  right: 20px;
+  top: -40px;
+  border-radius: 6px;/*角の丸み*/
+  box-shadow: 5px 5px 5px 0px rgba(0,0,0,.12), 0 2px 2px 0 rgba(0,0,0,.24);/*影*/
+  z-index: 900;
+}
+
+.box p {
+  font-size: 20px;
+}
+
+.boxin {
+  position: relative;
+  float:right;
+}
+
 .card {
   background: #fff;
   height: 240px;
@@ -55,7 +77,6 @@ body {
   border-radius: 6px;/*角の丸み*/
   box-shadow: 5px 5px 5px 0px rgba(0,0,0,.12), 0 2px 2px 0 rgba(0,0,0,.24);/*影*/
   font-family: 'M PLUS Rounded 1c', sans-serif;
-  z-index: -1;
   position: absolute;
 }
 
@@ -80,14 +101,14 @@ body {
   box-shadow: 5px 5px 5px 0px rgba(0,0,0,.12), 0 2px 2px 0 rgba(0,0,0,.24);/*影*/
 }
 
-.deckcard:hover .balloon{/*ホバー時*/
+.decklist:hover .balloon{/*ホバー時*/
   display: inline;
 }
 
 .balloon {
   position: absolute;                /* 親要素を基準 */
   display: none;                        /* 要素を非表示 */
-  font-size: 60px;
+  font-size: 30px;
   z-index: 300;
 }
 
@@ -157,4 +178,5 @@ header {
 }
 header .headline{
   font-size: 32px;
+  box-shadow: 5px 5px 5px 0px rgba(0,0,0,.12), 0 2px 2px 0 rgba(0,0,0,.24);/*影*/
 }
