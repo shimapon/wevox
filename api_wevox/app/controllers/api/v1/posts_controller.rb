@@ -7,14 +7,15 @@ module Api
         posts = Post.order(created_at: :desc) # 並び替え
         deck = []
 
-        File.open('wevox_cardlist.txt') do |file|
-            file.each_line do |subject|
-              puts subject
-              deck.push({"title":"#{subject.chomp}"})
-            end
-          end
-          
-        render json: { status: 'SUCCESS', message: 'Loaded posts', data: deck }
+        # File.open('wevox_cardlist.txt') do |file|
+        #     file.each_line do |subject|
+        #       puts subject
+        #       deck.push({"title":"#{subject.chomp}"})
+        #     end
+        #   end
+        titles = Deck.all
+
+        render json: { status: 'SUCCESS', message: 'Loaded posts', data: titles }
       end
 
       # def new # リソースを新規作成する
