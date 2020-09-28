@@ -13,6 +13,8 @@ Reactのフロントアプリ．
 
 ## 画面設計
 ![イラスト1](https://user-images.githubusercontent.com/38938327/94405949-3d564a00-01ac-11eb-9e17-e34d28ac12e5.png)
+<img src="https://user-images.githubusercontent.com/38938327/94405949-3d564a00-01ac-11eb-9e17-e34d28ac12e5.png" width=50%>
+
 ![イラスト2](https://user-images.githubusercontent.com/38938327/94406086-75f62380-01ac-11eb-9e77-011088df279b.png)
 ![イラスト3](https://user-images.githubusercontent.com/38938327/94406093-78f11400-01ac-11eb-98ec-66aa90a6f710.png)
 ![イラスト4](https://user-images.githubusercontent.com/38938327/94406099-7b536e00-01ac-11eb-9bee-9e9e4ffccc5b.png)
