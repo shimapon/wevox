@@ -1,8 +1,12 @@
 # wevox
 TechTrainのmissionです．
 
+> アトラエの組織改善プラットフォーム「wevox」(ウィボックス)から発売している  
+>「wevox values card」をオンラインでプレイできるように開発していただきます。
+
 TechTrain:https://techbowl.co.jp/techtrain  
-ミッションページ:https://techbowl.co.jp/techtrain/missions/8
+ミッションページ:https://techbowl.co.jp/techtrain/missions/8  
+wevox values card:https://wevox.io/valuescard
 
 ## api_webox
 RailsAPIサーバーのファイル．
