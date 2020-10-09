@@ -14,7 +14,7 @@ const App = ()=>(
   </BrowserRouter>
 )
 
-//　親コンポーネント，Game
+// 親コンポーネント，Game
 class Game extends React.Component {
   constructor(props){
     super(props)
@@ -70,7 +70,7 @@ class Game extends React.Component {
     })
   }
 
-  //　山札クリック時
+  // 山札クリック時
   handleDeckClick(){
     var h = this.state.cards
     var a;

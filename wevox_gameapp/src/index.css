@@ -17,6 +17,12 @@ body {
   flex-direction: column;
 }
 
+.roomlist{
+  padding: 10px; 
+  margin-bottom: 10px; 
+  border: 1px solid #333333;
+}
+
 /* Pages */
 .p_hand {
   margin-top: 50px;
