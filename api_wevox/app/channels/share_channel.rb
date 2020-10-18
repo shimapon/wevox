@@ -1,8 +1,4 @@
 class ShareChannel < ApplicationCable::Channel
-  # def self.broadcast(comment)
-  #   logger.info 'これ発火'
-  #   ActionCable.server.broadcast("share_channel", Room.all)
-  # end 
 
   # クライアントと接続されたとき
   def subscribed
