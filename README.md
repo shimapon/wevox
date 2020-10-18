@@ -12,20 +12,25 @@ wevox values card:https://wevox.io/valuescard
 10/18 13:00
 
 ## api_webox
-RailsAPIサーバーのファイル．  
+**Rails**APIサーバーのファイル．  
   
 [Action Cable:CHANNEL]  
-・ShareChannel: 部屋選択画面で用いる  
-・TeamsChannel: 部屋待機画面で用いる  
-・GameChannel: ゲーム画面で用いる  
+・**ShareChannel**: 部屋選択画面で用いる  
+・**TeamsChannel**: 部屋待機画面で用いる  
+・**GameChannel**: ゲーム画面で用いる  
   
 (Controllerは用いる必要がなくなったかも？)  
 
 ## webox_gameapp
-Reactのフロントアプリ．
+**React**のフロントアプリ．
 
 ## 画面遷移とページコンポーネント
 <img src="https://user-images.githubusercontent.com/38938327/96357973-35e7e800-113d-11eb-8fac-02c64d9fc5da.png" width=100%>
+
+## 実際の画面
+<img src="https://user-images.githubusercontent.com/38938327/96358295-a8a69280-1140-11eb-9e3d-908fa228f492.png" width=80%>
+
+
 
 
 ## DB設計(Rails Model)
