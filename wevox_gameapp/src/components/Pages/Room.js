@@ -1,18 +1,15 @@
-import React from 'react';
-import '../../index.css';
-import Game from './Game';
+import React from 'react'
 import { ActionCableProvider } from 'react-actioncable-provider';
+import WaitRoom from './WaitRoom';
 
-
-class App extends React.Component {
-
+class Room extends React.Component {
   render(){
     return(
       <div>
         <ActionCableProvider url="http://localhost:4000/cable">
-          <Game
-            id={this.props.match.params.id}
+          <WaitRoom
             history={this.props.history}
+            id={this.props.match.params.id}
           />
         </ActionCableProvider>
       </div>
@@ -20,5 +17,4 @@ class App extends React.Component {
   }
 }
 
-
-export default App
+export default Room;

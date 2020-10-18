@@ -6,7 +6,7 @@ module Api
       def index # リソースの一覧を表示する
         posts = Post.order(created_at: :desc) # 並び替え
 
-        titles = Deck.all
+        titles = Card.all
 
         render json: { status: 'SUCCESS', message: 'Loaded posts', data: titles }
       end
