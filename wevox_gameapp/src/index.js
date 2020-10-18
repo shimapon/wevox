@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App2 from './components/Pages/App2'
+import Parent from './components/Pages/Parent'
 
 ReactDOM.render(
-  <App2 />,
+  <Parent />,
   document.getElementById('root')
 )
