@@ -9,7 +9,7 @@ TechTrain:https://techbowl.co.jp/techtrain
 wevox values card:https://wevox.io/valuescard
 
 ## Readme更新日
-10/18 13:00
+10/18 19:30
 
 ## api_webox
 **Rails**APIサーバーのファイル．  
@@ -22,7 +22,9 @@ wevox values card:https://wevox.io/valuescard
 (Controllerは用いる必要がなくなったかも？)  
 
 ## webox_gameapp
-**React**のフロントアプリ．
+**React**のフロントアプリ．  
+React コンポーネントで ActionCable チャンネルを購読できるようにするパッケージを使用  
+https://github.com/cpunion/react-actioncable-provider
 
 ## 画面遷移とページコンポーネント
 <img src="https://user-images.githubusercontent.com/38938327/96357973-35e7e800-113d-11eb-8fac-02c64d9fc5da.png" width=100%>
