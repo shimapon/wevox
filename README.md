@@ -14,7 +14,7 @@ wevox values card:https://wevox.io/valuescard
 ## api_webox
 RailsAPIサーバーのファイル．  
   
-[Action Cable:CHANNEL  ]
+[Action Cable:CHANNEL]  
 ・ShareChannel: 部屋選択画面で用いる  
 ・TeamsChannel: 部屋待機画面で用いる  
 ・GameChannel: ゲーム画面で用いる  
