@@ -19,7 +19,7 @@ class GameChannel < ApplicationCable::Channel
     ActionCable.server.broadcast("game_channel_#{params[:id]}", [$hands,$trash])
     logger.info $deck
     logger.info '----------'
-    logger.info $hand
+    logger.info $hands
   end
 
 
