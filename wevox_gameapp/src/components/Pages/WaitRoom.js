@@ -32,6 +32,8 @@ class WaitRoom extends React.Component {
     handleReceived(message) {
         console.log("WaitRoom:message来た: ");
         console.log(message); 
+        console.log(typeof message); 
+
         // ゲーム画面に遷移する
         if (message==="start"){
             this.handleToGamePage()
@@ -39,11 +41,11 @@ class WaitRoom extends React.Component {
         }
 
         this.setState({
-            roomname:message[0].name,
-            roomuser1:message[0].user1,
-            roomuser2:message[0].user2,
-            roomuser3:message[0].user3,
-            roomuser4:message[0].user4,
+            roomname:message.name,
+            roomuser1:message.user1,
+            roomuser2:message.user2,
+            roomuser3:message.user3,
+            roomuser4:message.user4,
         })
 
     }
@@ -51,7 +53,6 @@ class WaitRoom extends React.Component {
     // ゲーム画面に遷移する
     handleToGamePage() {
        console.log("ゲーム画面に変わります");
-       var tmp=[];
        this.props.history.push({
         pathname: '/App/' + this.props.id,
         state: { 
@@ -75,6 +76,8 @@ class WaitRoom extends React.Component {
   
     
     render() {  
+        console.log("componentDidMount: WaitRoom");
+        console.log("mynameは"+this.props.history.location.state.myname);
       return (
         <div className="waitroom">
             {

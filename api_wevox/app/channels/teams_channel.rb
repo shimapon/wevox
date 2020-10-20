@@ -14,8 +14,26 @@ class TeamsChannel < ApplicationCable::Channel
 
 
   def send_firstmessage()
-    # これで渡せる
-    ActionCable.server.broadcast("teams_channel_#{params[:id]}", Room.where(id: params[:id]))
+    roomuser=[]
+    room = Room.find(params[:id])
+
+    for num in [room.user1, room.user2, room.user3, room.user4] do
+      if num then
+        roomuser.push(num.name)
+      else
+        roomuser.push(nil)
+      end
+    end
+
+
+    ActionCable.server.broadcast("teams_channel_#{params[:id]}", 
+    {
+      name:Room.find(params[:id]).name,
+      user1:roomuser[0],
+      user2:roomuser[1],
+      user3:roomuser[2],
+      user4:roomuser[3],
+    })
   end
 
   # ゲーム画面に遷移させる
