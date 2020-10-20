@@ -37,17 +37,19 @@ class SelectRoom extends React.Component {
   handleReceived(message) {
     console.log("SelectRoom:message来た: ");
     console.log(message);
+    //console.log(typeof message); //model.all だとObjectで来るみたい
     const served_roomlist = [];
 
     for (let i = 0; i < message.length; i++) {
       let num_user=0
-      if (message[i].user1) num_user++;
-      if (message[i].user2) num_user++;
-      if (message[i].user3) num_user++;
-      if (message[i].user4) num_user++;
+      if (message[i].user1_id) num_user++;
+      if (message[i].user2_id) num_user++;
+      if (message[i].user3_id) num_user++;
+      if (message[i].user4_id) num_user++;
       served_roomlist.push([message[i].name, num_user])
     }
 
+    // 部屋作成した際に，message最後のidを取得する
     enterRoomid=message.slice(-1)[0].id;
 
     this.setState({
@@ -129,7 +131,7 @@ class SelectRoom extends React.Component {
         {
           this.acc || (this.acc = <ActionCableConsumer
             ref='shareChannel'
-            channel={{channel: 'ShareChannel', id: '3'}}
+            channel={{channel: 'ShareChannel'}}
             onConnected={this.handleConnected}
             onReceived={this.handleReceived}
           />)

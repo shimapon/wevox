@@ -49,30 +49,30 @@ class Test extends React.Component {
           </header>
           <div>
             <div className="parent">
-              <div class="div1">{card1[0]} </div>
-              <div class="div2">{card1[1]} </div>
-              <div class="div3">{card1[2]} </div>
-              <div class="div4">{card1[3]} </div>
-              <div class="div5">{card1[4]} </div>
-              <div class="div6">{user1} の<br></br>価値観</div>
-              <div class="div7">{card2[0]}</div>
-              <div class="div8"> </div>
-              <div class="div9"> </div>
-              <div class="div10"> </div>
-              <div class="div11"> </div>
-              <div class="div12"> </div>
-              <div class="div13"> </div>
-              <div class="div14"> </div>
-              <div class="div15"> </div>
-              <div class="div16"> </div>
-              <div class="div17"> </div>
-              <div class="div18"> </div>
-              <div class="div19"> </div>
-              <div class="div20"> </div>
-              <div class="div21"> </div>
-              <div class="div22"> </div>
-              <div class="div23"> </div>
-              <div class="div24"> </div>
+              <div className="div1">{card1[0]} </div>
+              <div className="div2">{card1[1]} </div>
+              <div className="div3">{card1[2]} </div>
+              <div className="div4">{card1[3]} </div>
+              <div className="div5">{card1[4]} </div>
+              <div className="div6">{user1} の<br></br>価値観</div>
+              <div className="div7">{card2[0]} </div>
+              <div className="div8">{card2[1]} </div>
+              <div className="div9">{card2[2]} </div>
+              <div className="div10">{card2[3]} </div>
+              <div className="div11">{card2[4]} </div>
+              <div className="div12">{user2} の<br></br>価値観</div>
+              <div className="div13">{card3[0]} </div>
+              <div className="div14">{card3[1]} </div>
+              <div className="div15">{card3[2]} </div>
+              <div className="div16">{card3[3]} </div>
+              <div className="div17">{card3[4]} </div>
+              <div className="div18">{user3} の<br></br>価値観</div>    
+              <div className="div19">{card4[0]} </div>
+              <div className="div20">{card4[1]} </div>
+              <div className="div21">{card4[2]} </div>
+              <div className="div22">{card4[3]} </div>
+              <div className="div23">{card4[4]} </div>
+              <div className="div24">{user4} の<br></br>価値観</div>                        
             </div>
             <div className="resultbutton">
               <div>
