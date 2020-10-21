@@ -10,6 +10,7 @@ import { ActionCableConsumer } from 'react-actioncable-provider';
 let roomuser;
 // 自分の名前
 let myname;
+let finishflag=false
 
 // 親コンポーネント，Game
 class Game extends React.Component {
@@ -18,7 +19,7 @@ class Game extends React.Component {
       this.handleReceived = this.handleReceived.bind(this);
       this.state = {
         cards: Array(5).fill(null),
-        deck: [],
+        num_deck: 0,
         trash: [],
         playstate: 0,
       }
@@ -103,19 +104,18 @@ class Game extends React.Component {
           this.setState({
             cards:message[0][i][1],
             trash:message[1],
+            num_deck:message[2]
           });
         }
       }
-      if(this.state.trash.length === (60-message[0].length*5)){
-        this.setState({
-          playstate:3
-        });
-        //結果画面に遷移する
+
+      if(finishflag){
         this.props.history.push({
           pathname: '/Result',
           state: { owncards: message[0] }
        })
       }
+      if(this.state.num_deck==0) finishflag=true
     }
   
     render() {
@@ -145,7 +145,7 @@ class Game extends React.Component {
             }
           <div className="p_field">
             <Field
-              value={this.state.deck.length}
+              value={this.state.num_deck}
               trash={this.state.trash}
               handleClickDeck={()=>this.handleDeckClick()}
               handleClickTrash={(i)=>this.handleTrashClick(i)}
@@ -170,21 +170,6 @@ class Game extends React.Component {
   
   
   // ========================================
-  
-  // 配列から要素をcount個ランダムに取得する．
-  function random(arr, count) {
-      if (!count) count = 1;
-   
-      let data = [];
-   
-      for (var i = 0; i < count; i++) {
-          var num = Math.floor(Math.random() * arr.length);
-          data.push(arr.splice(num, 1)[0]);
-      }
-   
-      return data;
-  };
-  
   function checkFinish(decklength, handlength) {
     if (decklength===0 && handlength===5) {
       console.log("finish");
