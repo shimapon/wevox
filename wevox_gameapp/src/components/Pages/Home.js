@@ -20,10 +20,6 @@ class Home extends React.Component {
         <button onClick={this.handleToTopPage}>
           部屋入室ページへ
         </button>
-        {/* <h1>
-          <Link to="/">Home（ここ）</Link>
-        </h1>
-        <Link to="/App">ゲーム画面へ</Link> */}
       </div>
     )
   }
