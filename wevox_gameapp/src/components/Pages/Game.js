@@ -19,7 +19,7 @@ class Game extends React.Component {
       this.handleReceived = this.handleReceived.bind(this);
       this.state = {
         cards: Array(5).fill(null),
-        num_deck: 0,
+        num_deck: -1,
         trash: [],
         playstate: 0,
       }
@@ -170,12 +170,5 @@ class Game extends React.Component {
   
   
   // ========================================
-  function checkFinish(decklength, handlength) {
-    if (decklength===0 && handlength===5) {
-      console.log("finish");
-      return 1;
-    }
-    return null;
-  }
 
   export default Game
