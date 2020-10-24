@@ -13,7 +13,7 @@ class SelectRoom extends React.Component {
     this.handleReceived = this.handleReceived.bind(this);
 
     this.state = {
-      rooms: ["first",0],
+      rooms: ["A",0],
       roomname: '',
       username: '',
       message:[],
@@ -141,15 +141,19 @@ class SelectRoom extends React.Component {
         </div>
         <div className="yoko">
           <div className="p-roomlist">
-            <p>部屋一覧</p>
+            <p className="roomlist_title">部屋一覧</p>
+            <div className="roomlist_label">
+              <p>部屋名</p>
+              <p className="roomlist_num">人数</p>
+            </div>
+
               <div className="roomlist">
                 <div>
                 {this.state.rooms.map((room) => (
                   <div key={room}>
-                    <button className="roomcard" onClick={(i)=>this.handleAdd(room[0])}>
-                      {room[0]}
-                      <p>現在:{room[1]}人</p>
-                    </button>
+                    <li className="roomcard" onClick={(i)=>this.handleAdd(room[0])}>
+                      <a href="#">{room[0]} {room[1]}人</a>
+                    </li>
                   </div>
                 ))}
                 </div>
@@ -158,22 +162,17 @@ class SelectRoom extends React.Component {
           <div className="p-form">
             <form onSubmit={this.handleSubmit} className="form2">
               <div className="form-label">
-                <div>
-                  <label>
-                  部屋名:
+                <div className="form-roomname">
+                    <p>部屋名:</p>
                     <input type="text" value={this.state.roomname} onChange={this.handleChange} />
-                  </label>
-
                 </div>
                 <div className="nick-name">
-                  <label>
-                    ニックネーム:
+                  <p>ニックネーム:</p>
                   <input type="text" value={this.state.username} onChange={this.handleChangeusername} />
-                  </label>
                 </div>
                 
               </div>
-              <div>
+              <div className="form-button">
                 <input type="submit" value="部屋作成" />
                 <input type="submit" value="部屋に参加" onClick={this.handleAlternate} className="aaa"/>
               </div>
