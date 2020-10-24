@@ -80,6 +80,21 @@ class SelectRoom extends React.Component {
 
   // 部屋を作成
   handleSubmit(event) {
+    if(this.state.roomname==""||this.state.username==""){
+      console.log("作成アラート");
+
+      alert("空欄を埋めてください!");
+      return;
+    }
+
+    for(var i=0; i<this.state.rooms.length;i++){
+      if(this.state.roomname==this.state.rooms[i][0]){
+        alert("同名の部屋が存在します，名前を変えるか,部屋に参加するボタンを押してください");
+        return;
+      }
+    }
+
+
     alert('submit 部屋名:' + this.state.roomname
     +'  ユーザネーム: '+ this.state.username);
     event.preventDefault();
@@ -93,6 +108,13 @@ class SelectRoom extends React.Component {
 
   // 部屋に参加する
   handleAlternate(event) {
+    if(this.state.roomname==""||this.state.username==""){
+      console.log("参加アラート");
+      alert("空欄を埋めてください!");
+      return;
+    }
+
+
     // 参加時はフォームの部屋名に入っている文字列と同一の部屋からidを取得する
     for(var i=0;i<this.state.message.length;i++){
       if(this.state.roomname===this.state.message[i].name){
@@ -105,7 +127,9 @@ class SelectRoom extends React.Component {
     +'  ユーザネーム: '+ this.state.username);
     event.preventDefault();
     this.sendMessage(event);
-    this.handleToAppPage(enterRoomid2)
+    setTimeout(() => {
+      this.handleToAppPage(enterRoomid2)
+    }, 500)
   }
 
   // サーバに部屋名とユーザ名を送信する
@@ -160,7 +184,7 @@ class SelectRoom extends React.Component {
               </div>
           </div>
           <div className="p-form">
-            <form onSubmit={this.handleSubmit} className="form2">
+            <form className="form2">
               <div className="form-label">
                 <div className="form-roomname">
                     <p>部屋名:</p>
@@ -173,7 +197,7 @@ class SelectRoom extends React.Component {
                 
               </div>
               <div className="form-button">
-                <input type="submit" value="部屋作成" />
+                <input type="submit" value="部屋作成" onClick={this.handleSubmit}/>
                 <input type="submit" value="部屋に参加" onClick={this.handleAlternate} className="aaa"/>
               </div>
             </form>
