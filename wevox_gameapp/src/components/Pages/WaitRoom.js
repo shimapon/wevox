@@ -53,11 +53,16 @@ class WaitRoom extends React.Component {
     // ゲーム画面に遷移する
     handleToGamePage() {
        console.log("ゲーム画面に変わります");
+       var roomuser=[this.state.roomuser1]
+       if(this.state.roomuser2) roomuser.push(this.state.roomuser2)
+       if(this.state.roomuser3) roomuser.push(this.state.roomuser3)
+       if(this.state.roomuser4) roomuser.push(this.state.roomuser4)
+
        this.props.history.push({
         pathname: '/App/' + this.props.id,
         state: { 
             myname: this.props.history.location.state.myname,
-            roomuser: [this.state.roomuser1, this.state.roomuser2, this.state.roomuser3, this.state.roomuser4],
+            roomuser: roomuser,
         }
      })
     }

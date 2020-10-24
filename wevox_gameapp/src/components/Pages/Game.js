@@ -22,6 +22,7 @@ class Game extends React.Component {
         num_deck: -1,
         trash: [],
         playstate: 0,
+        now_player:0,
       }
     }
   
@@ -40,9 +41,16 @@ class Game extends React.Component {
       }, 500)
     }
 
+    
+
+
     // 手札クリック時
     handleHandClick(i) {
-      if (this.state.cards.length!==6){
+      console.log(myname);
+      console.log(roomuser);
+      console.log(this.state.now_player);
+      console.log(roomuser[this.state.now_player]);
+      if (myname!==roomuser[this.state.now_player] || this.state.cards.length!==6){
         return;
       }
 
@@ -50,25 +58,25 @@ class Game extends React.Component {
         playstate:2,
       })
 
-      let message = [myname,this.state.cards[i]]
+      let message = [this.state.now_player, myname,this.state.cards[i]]
       this.refs.gameChannel.perform('pushtrash_fromhand', {message}) 
     }
   
     // 捨て札クリック時
     handleTrashClick(i) {
-      if (this.state.cards.length!==5){
+      if (myname!==roomuser[this.state.now_player] || this.state.cards.length!==5){
         return;
       }
       this.setState({
         playstate:1,
       })
-      let message = [myname,this.state.trash[i]]
+      let message = [this.state.now_player, myname, this.state.trash[i]]
       this.refs.gameChannel.perform('pushhand_fromtrash', {message}) 
     }
   
     // 山札クリック時
     handleDeckClick(){
-      if (this.state.cards.length!==5){
+      if (myname!==roomuser[this.state.now_player] || this.state.cards.length!==5){
         return;
       }
       
@@ -76,7 +84,7 @@ class Game extends React.Component {
         playstate:1,
       })
 
-      let message = [myname]
+      let message = [this.state.now_player, myname]
       this.refs.gameChannel.perform('pushhand_fromdeck', {message}) 
     }
 
@@ -93,18 +101,23 @@ class Game extends React.Component {
 
     // GameChannelからのメッセージを処理する．
     // 形式:
-    // [[参加者の手札],トラッシュの配列]
+    // [プレイヤーのindex,[参加者の手札],トラッシュの配列, deckの枚数]
     //
     // 参加者の手札: ["プレイヤー名前",[手札の配列]]...
     handleReceived(message) {
       console.log("Game:message来た: ");
       console.log(message);
-      for (var i=0;i<message[0].length;i++){
-        if(message[0][i][0]===myname){
+
+      var now_player=message[0]
+      if (now_player>=roomuser.length) now_player=0
+
+      for (var i=0;i<message[1].length;i++){
+        if(message[1][i][0]===myname){
           this.setState({
-            cards:message[0][i][1],
-            trash:message[1],
-            num_deck:message[2]
+            now_player:now_player,
+            cards:message[1][i][1],
+            trash:message[2],
+            num_deck:message[3]
           });
         }
       }
@@ -112,15 +125,21 @@ class Game extends React.Component {
       if(finishflag){
         this.props.history.push({
           pathname: '/Result',
-          state: { owncards: message[0] }
+          state: { owncards: message[1] }
        })
       }
       if(this.state.num_deck==0) finishflag=true
     }
   
     render() {
+      roomuser = this.props.history.location.state.roomuser
+      myname=this.props.history.location.state.myname
       let text ="";
-      if (this.state.playstate === 0){
+
+      if(myname!==roomuser[this.state.now_player]){
+        text = roomuser[this.state.now_player]+"さんのターンです";
+      }
+      else if (this.state.playstate === 0){
         text = "山札から引きましょう";
       }
       else if (this.state.playstate === 1) {
@@ -128,9 +147,6 @@ class Game extends React.Component {
       }
       else if (this.state.playstate === 2) {
         text = "「山札」または「場にあるカード」から１枚引きましょう";
-      }
-      else if (this.state.playstate === 3) {
-        text = "終了";
       }
   
       return (

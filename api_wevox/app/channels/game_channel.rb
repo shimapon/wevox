@@ -43,55 +43,73 @@ class GameChannel < ApplicationCable::Channel
       ]
     end
 
-    ActionCable.server.broadcast("game_channel_#{params[:id]}", [$hash_hands[params[:id]], [], $hash_deck[params[:id]].length])
+    ActionCable.server.broadcast("game_channel_#{params[:id]}", [0, $hash_hands[params[:id]], [], $hash_deck[params[:id]].length])
   end
 
 
 
   # 手番のプレイヤーに山札からランダムに1枚渡す
   def pushhand_fromdeck(data)
-    if (data["message"][0]==$hash_hands[params[:id]][0][0]) then
+    player_index=data["message"][0]
+    player_name=data["message"][1]
+
+
+    if (player_name==$hash_hands[params[:id]][0][0]) then
       $hash_hands[params[:id]][0][1].push($hash_deck[params[:id]].pop)
-    elsif (data["message"][0]==$hash_hands[params[:id]][1][0]) then
+    elsif (player_name==$hash_hands[params[:id]][1][0]) then
       $hash_hands[params[:id]][1][1].push($hash_deck[params[:id]].pop)
-    elsif (data["message"][0]==$hash_hands[params[:id]][2][0]) then
+    elsif (player_name==$hash_hands[params[:id]][2][0]) then
       $hash_hands[params[:id]][2][1].push($hash_deck[params[:id]].pop)
-    elsif (data["message"][0]==$hash_hands[params[:id]][3][0]) then
+    elsif (player_name==$hash_hands[params[:id]][3][0]) then
       $hash_hands[params[:id]][3][1].push($hash_deck[params[:id]].pop)
     end
-    ActionCable.server.broadcast("game_channel_#{params[:id]}", [$hash_hands[params[:id]], $hash_trash[params[:id]], $hash_deck[params[:id]].length])
+    ActionCable.server.broadcast("game_channel_#{params[:id]}", [player_index, $hash_hands[params[:id]], $hash_trash[params[:id]], $hash_deck[params[:id]].length])
   end
 
   # 手番のプレイヤーの捨てたカードを捨て札に加える
   # [手番のプレイヤーの名前，カード名]
   def pushtrash_fromhand(data)
-    $hash_trash[params[:id]].push(data["message"][1])
-    if (data["message"][0]==$hash_hands[params[:id]][0][0]) then
-      $hash_hands[params[:id]][0][1].delete(data["message"][1])
-    elsif (data["message"][0]==$hash_hands[params[:id]][1][0]) then
-      $hash_hands[params[:id]][1][1].delete(data["message"][1])
-    elsif (data["message"][0]==$hash_hands[params[:id]][2][0]) then
-      $hash_hands[params[:id]][2][1].delete(data["message"][1])
-    elsif (data["message"][0]==$hash_hands[params[:id]][3][0]) then
-      $hash_hands[params[:id]][3][1].delete(data["message"][1])
+    player_index=data["message"][0]
+    logger.info player_index.class
+    player_name=data["message"][1]
+    card_name=data["message"][2]
+
+
+    $hash_trash[params[:id]].push(card_name)
+    if (player_name==$hash_hands[params[:id]][0][0]) then
+      $hash_hands[params[:id]][0][1].delete(card_name)
+    elsif (player_name==$hash_hands[params[:id]][1][0]) then
+      $hash_hands[params[:id]][1][1].delete(card_name)
+    elsif (player_name==$hash_hands[params[:id]][2][0]) then
+      $hash_hands[params[:id]][2][1].delete(card_name)
+    elsif (player_name==$hash_hands[params[:id]][3][0]) then
+      $hash_hands[params[:id]][3][1].delete(card_name)
     end
-    ActionCable.server.broadcast("game_channel_#{params[:id]}", [$hash_hands[params[:id]], $hash_trash[params[:id]], $hash_deck[params[:id]].length])
+
+    player_index+=1
+
+
+    ActionCable.server.broadcast("game_channel_#{params[:id]}", [player_index, $hash_hands[params[:id]], $hash_trash[params[:id]], $hash_deck[params[:id]].length])
   end
 
   # 手番のプレイヤーに捨て札から1枚渡す
   # [手番のプレイヤーの名前，カード名]
   def pushhand_fromtrash(data)
-    $hash_trash[params[:id]].delete(data["message"][1])
-    if (data["message"][0]==$hash_hands[params[:id]][0][0]) then
-      $hash_hands[params[:id]][0][1].push(data["message"][1])
-    elsif (data["message"][0]==$hash_hands[params[:id]][1][0]) then
-      $hash_hands[params[:id]][1][1].push(data["message"][1])
-    elsif (data["message"][0]==$hash_hands[params[:id]][2][0]) then
-      $hash_hands[params[:id]][2][1].push(data["message"][1])
-    elsif (data["message"][0]==$hash_hands[params[:id]][3][0]) then
-      $hash_hands[params[:id]][3][1].push(data["message"][1])
+    player_index=data["message"][0]
+    player_name=data["message"][1]
+    card_name=data["message"][2]
+
+    $hash_trash[params[:id]].delete(card_name)
+    if (player_name==$hash_hands[params[:id]][0][0]) then
+      $hash_hands[params[:id]][0][1].push(card_name)
+    elsif (player_name==$hash_hands[params[:id]][1][0]) then
+      $hash_hands[params[:id]][1][1].push(card_name)
+    elsif (player_name==$hash_hands[params[:id]][2][0]) then
+      $hash_hands[params[:id]][2][1].push(card_name)
+    elsif (player_name==$hash_hands[params[:id]][3][0]) then
+      $hash_hands[params[:id]][3][1].push(card_name)
     end
-    ActionCable.server.broadcast("game_channel_#{params[:id]}", [$hash_hands[params[:id]], $hash_trash[params[:id]], $hash_deck[params[:id]].length])
+    ActionCable.server.broadcast("game_channel_#{params[:id]}", [player_index, $hash_hands[params[:id]], $hash_trash[params[:id]], $hash_deck[params[:id]].length])
   end
 
 end
