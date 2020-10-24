@@ -129,10 +129,49 @@ body {
   flex-direction: column;
 }
 
+.p-roomlist{
+  width: 30%;
+  margin-left: 8em;
+}
+
+
+
 .roomlist{
   padding: 10px; 
   margin-bottom: 10px; 
   border: 1px solid #333333;
+}
+
+.roomcard{
+  list-style: none;
+}
+
+.roomcard a{
+	color: rgb(0, 0, 0);
+	display: block;
+	padding: 5px 10px;
+  text-decoration: none;
+  border: 1px solid #999;
+}
+.roomcard a:hover {
+  background-color:#000000;
+  color: white;
+}
+
+.roomlist_label{
+  display: flex;
+  margin: 0 auto 0 auto;
+  width: 80%;
+}
+
+.roomlist_num {
+  margin:1em 0 0 auto
+}
+
+.roomlist_title{
+  text-align: center;
+  background-color: aquamarine;
+  font-size: 24px;
 }
 
 .yoko{
@@ -140,29 +179,50 @@ body {
 }
 
 .aaa {
-  margin-left: 2em;
+  float: right;
 }
 
 .form2{
   margin-right: 4em;
   margin-top: 6em;
   margin-left: 4em;
+  margin-bottom: 4em;
+}
+
+.form-roomname{
+  display: flex;
 }
 
 .nick-name{
   margin-top: 2em;
   margin-bottom: 2em;
+  display: flex;
+}
+
+.form-roomname input{
+  margin: 1em 0.5em 0.5em auto;
+}
+
+.nick-name input{
+  margin: 1em 0.5em 0.5em auto;
 }
 
 .p-form{
+  width: 50%;
+  margin-right: 2em;
   padding: 10px; 
   margin-bottom: 10px; 
   border: 1px solid #333333;
   margin-left: 2em;
 }
 
+.form-button {
+  width: 70%;
+  margin-left: 3em;
+}
+
 .title{
-  padding-left: 10em;
+  text-align: center;
 }
 
 /* Pages */
