@@ -13,7 +13,7 @@ class SelectRoom extends React.Component {
     this.handleReceived = this.handleReceived.bind(this);
 
     this.state = {
-      rooms: ["A",0],
+      rooms: [],
       roomname: '',
       username: '',
       message:[],
@@ -37,6 +37,12 @@ class SelectRoom extends React.Component {
   handleReceived(message) {
     console.log("SelectRoom:message来た: ");
     console.log(message);
+
+    if(message.length==0){
+      return;
+    }
+
+
     //console.log(typeof message); //model.all だとObjectで来るみたい
     const served_roomlist = [];
 
@@ -147,6 +153,8 @@ class SelectRoom extends React.Component {
    })
   }
 
+
+
   
 
   render() {
@@ -170,18 +178,7 @@ class SelectRoom extends React.Component {
               <p>部屋名</p>
               <p className="roomlist_num">人数</p>
             </div>
-
-              <div className="roomlist">
-                <div>
-                {this.state.rooms.map((room) => (
-                  <div key={room}>
-                    <li className="roomcard" onClick={(i)=>this.handleAdd(room[0])}>
-                      <a href="#">{room[0]} {room[1]}人</a>
-                    </li>
-                  </div>
-                ))}
-                </div>
-              </div>
+              <ListningRoom rooms={this.state.rooms} onClick={(i)=>this.handleAdd(i)}/>
           </div>
           <div className="p-form">
             <form className="form2">
@@ -206,6 +203,42 @@ class SelectRoom extends React.Component {
     </div>
     );
   }
+}
+
+function ListningRoom(props) {
+  const rooms = props.rooms;
+  if (rooms.length==0) {
+    return <NotExistRoom />;
+  }
+  return <ExistRoom rooms={props.rooms} onClick={(i)=>props.onClick(i)}/>;
+}
+
+
+function NotExistRoom(props) {
+  return(
+    <div className="roomlist">
+      <div>
+        <li className="roomcard">
+          <p>部屋が立てられていません</p>
+        </li>
+      </div>
+    </div>
+)}
+
+function ExistRoom(props) {
+  return(
+              <div className="roomlist">
+                <div>
+                {props.rooms.map((room) => (
+                  <div key={room}>
+                    <li className="roomcard" onClick={(i)=>props.onClick(room[0])}>
+                      <a href="#"><div className="test">{room[1]}人</div>{room[0]}</a>
+                    </li>
+                  </div>
+                ))}
+                </div>
+              </div>
+  )
 }
 
 export default SelectRoom

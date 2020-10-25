@@ -56,6 +56,11 @@ body {
   font-size: 25px;
 }
 
+.test {
+  text-align:right;
+  float:right;
+}
+
 
 .wrapper {
   display: grid;
@@ -160,8 +165,11 @@ body {
 
 .roomlist_label{
   display: flex;
-  margin: 0 auto 0 auto;
-  width: 80%;
+  padding-left: 1em;
+  padding-right: 1em;
+  border: 1px solid;
+  color: white;
+  background-color: black;
 }
 
 .roomlist_num {
