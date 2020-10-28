@@ -12,11 +12,11 @@ class SelectRoom extends React.Component {
 
     this.handleReceived = this.handleReceived.bind(this);
 
+    // rooms:[部屋id, 部屋名, 部屋に入っている人数]
     this.state = {
       rooms: [],
       roomname: '',
       username: '',
-      message:[],
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -34,33 +34,33 @@ class SelectRoom extends React.Component {
   // ShareChannelからのメッセージを処理する．
   // 形式:
   // Room.all -> state更新
-  handleReceived(message) {
-    console.log("SelectRoom:message来た: ");
-    console.log(message);
+  handleReceived(messages) {
+    console.log("SelectRoom:messages来た: ");
+    console.log(messages);
 
-    if(message.length==0){
+
+    // 作成されている部屋がない場合
+    if(messages.length===0){
       return;
     }
 
-
-    //console.log(typeof message); //model.all だとObjectで来るみたい
+    //console.log(typeof messages); //model.all だとObjectで来るみたい
     const served_roomlist = [];
 
-    for (let i = 0; i < message.length; i++) {
+    for (let message of messages) {
       let num_user=0
-      if (message[i].user1_id) num_user++;
-      if (message[i].user2_id) num_user++;
-      if (message[i].user3_id) num_user++;
-      if (message[i].user4_id) num_user++;
-      served_roomlist.push([message[i].name, num_user])
+      if (message.user1_id) num_user++;
+      if (message.user2_id) num_user++;
+      if (message.user3_id) num_user++;
+      if (message.user4_id) num_user++;
+      if(num_user!==0) served_roomlist.push([message.id, message.name, num_user])
     }
 
-    // 部屋作成した際に，message最後のidを取得する
-    enterRoomid=message.slice(-1)[0].id;
+    // 部屋作成した際に，受け取るmessages最後のid(作成した部屋のID)を取得する
+    enterRoomid = messages.slice(-1)[0].id;
 
     this.setState({
       rooms:served_roomlist,
-      message:message
     })
     console.log("state_roomsは: ")
     console.log(this.state.rooms);
@@ -68,11 +68,12 @@ class SelectRoom extends React.Component {
   }
 
   handleConnected() {
-    console.log('successfully connected to cable! woohoo!');
+    console.log('SelectRoom: successfully connected to cable! woohoo!');
   }
 
   handleChange(event) {
     this.setState({roomname: event.target.value});
+
   }
 
   handleChangeusername(event) {
@@ -81,61 +82,74 @@ class SelectRoom extends React.Component {
 
   handleAdd(room) {
     this.setState({roomname: room});
+    // 「部屋に参加ボタン」を強調する
+
   }
 
 
-  // 部屋を作成
+  // 部屋を作成する
   handleSubmit(event) {
-    if(this.state.roomname==""||this.state.username==""){
-      console.log("作成アラート");
-
+    if(this.state.roomname===""||this.state.username===""){
       alert("空欄を埋めてください!");
       return;
     }
 
-    for(var i=0; i<this.state.rooms.length;i++){
-      if(this.state.roomname==this.state.rooms[i][0]){
-        alert("同名の部屋が存在します，名前を変えるか,部屋に参加するボタンを押してください");
+    for(let room of this.state.rooms){
+      if(this.state.roomname===room[1]){
+        alert("同名の部屋が存在します，名前を変えるか, 部屋に参加するボタンを押してください");
         return;
       }
     }
 
-
-    alert('submit 部屋名:' + this.state.roomname
-    +'  ユーザネーム: '+ this.state.username);
-    event.preventDefault();
-    this.sendMessage(event);
-    // 0.5秒後ゲーム画面に遷移する setTimeoutでゴリ押し...
-    setTimeout(() => {
-      this.handleToAppPage(enterRoomid)
-    }, 500)
-
+    if(window.confirm('部屋名:'+ this.state.roomname + ' で部屋を作成しますか？')){
+        event.preventDefault();
+        this.sendMessage(event);
+    
+        // 0.5秒後ゲーム画面に遷移する setTimeoutでゴリ押し...
+        setTimeout(() => {
+          this.handleToAppPage(enterRoomid)
+        }, 500)
+    }
+    else{
+        /* キャンセルの時の処理 */
+        return false;
+    }
   }
 
   // 部屋に参加する
   handleAlternate(event) {
-    if(this.state.roomname==""||this.state.username==""){
-      console.log("参加アラート");
+    if(this.state.roomname===""||this.state.username===""){
       alert("空欄を埋めてください!");
       return;
     }
 
-
     // 参加時はフォームの部屋名に入っている文字列と同一の部屋からidを取得する
-    for(var i=0;i<this.state.message.length;i++){
-      if(this.state.roomname===this.state.message[i].name){
-        enterRoomid2=this.state.message[i].id
-        break;
+    // 部屋に4人入っていたら警告を出す
+    for(let room of this.state.rooms) {
+      if(this.state.roomname===room[1]){
+        if(room[2] >= 4){
+          alert("この部屋は定員に達しています");
+          return;
+        }
+        else{
+          enterRoomid2 = room[0]
+          break;
+        }
       }
     }
 
-    alert('submit 部屋名:' + this.state.roomname
-    +'  ユーザネーム: '+ this.state.username);
-    event.preventDefault();
-    this.sendMessage(event);
-    setTimeout(() => {
-      this.handleToAppPage(enterRoomid2)
-    }, 500)
+    if(window.confirm('部屋名:'+ this.state.roomname + ' に参加しますか？')){
+      event.preventDefault();
+      this.sendMessage(event);
+      setTimeout(() => {
+        this.handleToAppPage(enterRoomid2)
+      }, 500)
+    }
+    else{
+      /* キャンセルの時の処理 */
+      return false;
+    }
+
   }
 
   // サーバに部屋名とユーザ名を送信する
@@ -207,7 +221,7 @@ class SelectRoom extends React.Component {
 
 function ListningRoom(props) {
   const rooms = props.rooms;
-  if (rooms.length==0) {
+  if (rooms.length===0) {
     return <NotExistRoom />;
   }
   return <ExistRoom rooms={props.rooms} onClick={(i)=>props.onClick(i)}/>;
@@ -227,17 +241,17 @@ function NotExistRoom(props) {
 
 function ExistRoom(props) {
   return(
-              <div className="roomlist">
-                <div>
-                {props.rooms.map((room) => (
-                  <div key={room}>
-                    <li className="roomcard" onClick={(i)=>props.onClick(room[0])}>
-                      <a href="#"><div className="test">{room[1]}人</div>{room[0]}</a>
-                    </li>
-                  </div>
-                ))}
-                </div>
-              </div>
+    <div className="roomlist">
+      <div>
+      {props.rooms.map((room) => (
+        <div key={room}>
+          <li className="roomcard" onClick={(i)=>props.onClick(room[1])}>
+            <a><div className="test">{room[2]}人</div>{room[1]}</a>
+          </li>
+        </div>
+      ))}
+      </div>
+    </div>
   )
 }
 
