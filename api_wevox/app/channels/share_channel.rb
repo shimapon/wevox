@@ -25,16 +25,15 @@ class ShareChannel < ApplicationCable::Channel
       logger.info "user作成できなかった"
     end
 
-
     # Roomのuser_idで空いているところに左詰する
     # もう少し上手い書き方がありそう?
-    if (Room.find_by(name: data["message"][0])) then
+    if (enterRoom=Room.find_by(name: data["message"][0])) then
       logger.info "ある"
-      if (Room.find_by(name: data["message"][0]).user1_id.nil?) then
+      if (enterRoom.user1_id.nil?) then
         Room.where(name: data["message"][0], user1_id: nil).update(user1_id:user.id)
-      elsif (Room.find_by(name: data["message"][0]).user2_id.nil?) then
+      elsif (enterRoom.user2_id.nil?) then
         Room.where(name: data["message"][0], user2_id: nil).update(user2_id:user.id)
-      elsif (Room.find_by(name: data["message"][0]).user3_id.nil?) then
+      elsif (enterRoom.user3_id.nil?) then
         Room.where(name: data["message"][0], user3_id: nil).update(user3_id:user.id)
       else
         Room.where(name: data["message"][0], user4_id: nil).update(user4_id:user.id)
@@ -49,6 +48,8 @@ class ShareChannel < ApplicationCable::Channel
     end
 
     ActionCable.server.broadcast("share_channel", Room.all)
+    #ActionCable.server.broadcast("share_channel", Roomなんだけどuser_idじゃなくて名前が入っている)
+
   end
 
   def send_firstmessage()
