@@ -97,14 +97,15 @@ Atomic Designに基づく
 # 開発での考案
 
 ## User,Roomのテーブルを繋ぐ中間テーブルが必要？
-Userモデル：　User情報
-Roomモデル：  4人以下が所属するRoom
-Entryモデル：　どのUserがどのRoomに所属しているか
+Userモデル：　User情報  
+Roomモデル：  4人以下が所属するRoom  
+Entryモデル：　どのUserがどのRoomに所属しているか  
 
 room.rb  
 ```ruby
 class Room < ApplicationRecord
   has_many :entries, dependent: :destroy
+  has_many :room, through: :entries
 end
 ```
 
@@ -112,9 +113,10 @@ user.rb
 ```ruby
 class User < ApplicationRecord
   has_many :entries, dependent: :destroy
+  has_many :user, through: :entries
 end
 ```  
-中間テーブル  
+中間テーブル:entry.rb  
 ```ruby
 class Entry < ApplicationRecord
   belongs_to :user
