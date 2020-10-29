@@ -9,7 +9,7 @@ TechTrain:https://techbowl.co.jp/techtrain
 wevox values card:https://wevox.io/valuescard
 
 ## Readme更新日
-10/29
+10/29 19:20
 
 ## 課題
 ・ゲームが終了した，または全員が退出してしまった部屋を入っているUserと共にDBから削除する    
