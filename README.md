@@ -9,7 +9,16 @@ TechTrain:https://techbowl.co.jp/techtrain
 wevox values card:https://wevox.io/valuescard
 
 ## Readme更新日
-10/28
+10/29
+
+## 課題
+・ゲームが終了した，または全員が退出してしまった部屋を入っているUserと共にDBから削除する    
+・退出処理 -> Roomテーブルから該当のユーザを削除.  
+・ゲームでの順番が入室順となっており，ユーザ側で決められない  
+・ゲーム画面で他のユーザの操作が見られていない．（カードゲームではあまりこういう例はないように感じる)  
+・[本番環境]reloadするとアクセスできなくなる  
+・[本番環境]レスポンスが遅い  
+
 
 ## api_webox
 **Rails**APIサーバーのファイル．  
