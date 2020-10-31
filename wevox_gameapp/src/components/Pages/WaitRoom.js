@@ -1,6 +1,9 @@
 import React from 'react';
 import '../../index.css';
 import { ActionCableConsumer } from 'react-actioncable-provider';
+import Main from '../Organisms/Main';
+import MHeader from '../Molecules/Header';
+
 
 
 // 親コンポーネント，Game
@@ -9,7 +12,7 @@ class WaitRoom extends React.Component {
       super(props)
       this.handleReceived = this.handleReceived.bind(this);
       this.state = {
-        roomname:"test",
+        roomname:"",
         roomuser1:undefined,
         roomuser2:undefined,
         roomuser3:undefined,
@@ -26,7 +29,6 @@ class WaitRoom extends React.Component {
     handleReceived(message) {
         console.log("WaitRoom:message来た: ");
         console.log(message); 
-        console.log(typeof message); 
 
         // ゲーム画面に遷移する
         if (message==="start"){
@@ -61,77 +63,46 @@ class WaitRoom extends React.Component {
      })
     }
   
-    // Component が Mount された後に実行されるメソッド
-    componentDidMount() {
-    }
-
-
     onClick() {
-        // 渡すのはなんでも良い
-        const message = ["hoge"];
+        if(window.confirm("このメンバーでゲームを始めますか？(誰かでも押すと全員画面移動します)")){
+            // 渡すのはなんでも良い
+            const message = ["hoge"];
 
-        this.refs.teamsChannel.perform('move_gameapp', {message}) 
+            this.refs.teamsChannel.perform('move_gameapp', {message}) 
+        }
+        else{
+            /* キャンセルの時の処理 */
+            return false;
+        }
     }
-  
-    
+
     render() {  
-        console.log("componentDidMount: WaitRoom");
-        console.log("mynameは"+this.props.history.location.state.myname);
-      return (
-        <div className="waitroom">
-            {
-                this.acc || (this.acc = <ActionCableConsumer
-                    ref='teamsChannel'
-                    channel={{channel: 'TeamsChannel', id: this.props.id}}
-                    onConnected={this.handleConnected}
-                    onReceived={this.handleReceived}
-                />)
-            }
-          <header className="waitroomheader">
-              部屋:{this.state.roomname}
-          </header>
-          <div className="wrapper">              
-              <div className="userbox">
-                  <div className="usertextbox">
-                    <div>
-                        <p>{this.state.roomuser1}</p>
-                    </div>
-                    
-                  </div>
-
-              </div>
-              <div className="userbox">
-                  <div className="usertextbox">
-                    <div>
-                        <p>{this.state.roomuser2}</p>
-                    </div>
-                    
-                  </div>
-              </div>
-              <div className="userbox">
-                  <div className="usertextbox">
-                    <div>
-                        <p>{this.state.roomuser3}</p>
-                    </div>
-                    
-                  </div>
-              </div>
-              <div className="userbox">
-                  <div className="usertextbox">
-                    <div>
-                        <p>{this.state.roomuser4}</p>
-                    </div>
-                  </div>
-              </div>
-          </div>
-            <div className="p-startbutton">
-                <div className="startbutton">
-                    <button onClick={this.onClick}>ゲーム開始</button>
-                </div>
+        return (
+            <div className="waitroom">
+                {
+                    this.acc || (this.acc = <ActionCableConsumer
+                        ref='teamsChannel'
+                        channel={{channel: 'TeamsChannel', id: this.props.id}}
+                        onConnected={this.handleConnected}
+                        onReceived={this.handleReceived}
+                    />)
+                }
+                <MHeader
+                    headertext={this.state.roomname}
+                />
+                <Main
+                    roomusers={[
+                        this.state.roomuser1, 
+                        this.state.roomuser2, 
+                        this.state.roomuser3, 
+                        this.state.roomuser4,
+                    ]}
+                    onClick={this.onClick}
+                    text={"ゲーム開始"}
+                />
             </div>
-        </div>
-      );
-    }
+        );
+      }
   }
 
   export default WaitRoom

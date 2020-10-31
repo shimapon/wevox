@@ -9,4 +9,5 @@ function Text(props){
     </p>
   );
 }
+
 export default Text;

@@ -1,5 +1,6 @@
 import React from 'react';
 import '../../index.css';
+import MHeader from '../Molecules/Header';
 
 
 class Result extends React.Component {
@@ -42,9 +43,9 @@ class Result extends React.Component {
 
     return(
       <div>
-          <header className="waitroomheader">
-              結果
-          </header>
+          <MHeader
+              headertext={"結果"}
+          />
           <div>
             <div className="parent">
               {list}                  
