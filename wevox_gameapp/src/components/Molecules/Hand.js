@@ -3,7 +3,7 @@ import '../../index.css';
 import Card from '../Atoms/Card';
 
 // 手札のコンポーネント
-class M_Hand extends React.Component {
+class MHand extends React.Component {
   renderSquare(i) {
     return (
       <Card
@@ -25,4 +25,4 @@ class M_Hand extends React.Component {
   }
 }
 
-export default M_Hand;
+export default MHand;

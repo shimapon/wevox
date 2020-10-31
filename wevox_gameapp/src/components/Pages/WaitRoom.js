@@ -18,12 +18,6 @@ class WaitRoom extends React.Component {
       this.onClick = this.onClick.bind(this);
     }
 
-    // Component が Mount された後に実行されるメソッド
-    componentDidMount() {
-        console.log("componentDidMount: WaitRoom");
-        console.log("mynameは"+this.props.history.location.state.myname);
-    }
-
     // TeamsChannelからのメッセージを処理する．
     // 形式:
     // 文字列で"start" -> 画面遷移する

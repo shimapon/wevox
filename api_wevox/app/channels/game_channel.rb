@@ -15,7 +15,7 @@ class GameChannel < ApplicationCable::Channel
 # 接続したプレイヤーに山札から5枚配布する
   def first_regis(data)
     logger.info 'game:firstregis'
-    logger.info data["message"][0]
+    player_name = data["message"][0]
 
     $hash_trash[params[:id]]=[]
 
@@ -26,7 +26,7 @@ class GameChannel < ApplicationCable::Channel
         hand.push($hash_deck[params[:id]].pop)
       end
 
-      $hash_hands[params[:id]].push([data["message"][0],hand])
+      $hash_hands[params[:id]].push([player_name,hand])
     else
       #デッキを作成する
       deck = Card.pluck(:title).shuffle
@@ -39,7 +39,7 @@ class GameChannel < ApplicationCable::Channel
       $hash_deck[params[:id]]=deck
       $hash_hands[params[:id]]=
       [
-        [data["message"][0],hand]
+        [player_name, hand]
       ]
     end
 
@@ -70,10 +70,8 @@ class GameChannel < ApplicationCable::Channel
   # [手番のプレイヤーの名前，カード名]
   def pushtrash_fromhand(data)
     player_index=data["message"][0]
-    logger.info player_index.class
     player_name=data["message"][1]
     card_name=data["message"][2]
-
 
     $hash_trash[params[:id]].push(card_name)
     if (player_name==$hash_hands[params[:id]][0][0]) then
@@ -88,7 +86,6 @@ class GameChannel < ApplicationCable::Channel
 
     player_index+=1
 
-
     ActionCable.server.broadcast("game_channel_#{params[:id]}", [player_index, $hash_hands[params[:id]], $hash_trash[params[:id]], $hash_deck[params[:id]].length])
   end
 
@@ -100,6 +97,7 @@ class GameChannel < ApplicationCable::Channel
     card_name=data["message"][2]
 
     $hash_trash[params[:id]].delete(card_name)
+
     if (player_name==$hash_hands[params[:id]][0][0]) then
       $hash_hands[params[:id]][0][1].push(card_name)
     elsif (player_name==$hash_hands[params[:id]][1][0]) then
@@ -109,6 +107,7 @@ class GameChannel < ApplicationCable::Channel
     elsif (player_name==$hash_hands[params[:id]][3][0]) then
       $hash_hands[params[:id]][3][1].push(card_name)
     end
+
     ActionCable.server.broadcast("game_channel_#{params[:id]}", [player_index, $hash_hands[params[:id]], $hash_trash[params[:id]], $hash_deck[params[:id]].length])
   end
 

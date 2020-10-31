@@ -72,11 +72,12 @@ class SelectRoom extends React.Component {
   }
 
   handleChange(event) {
+    event.preventDefault();
     this.setState({roomname: event.target.value});
-
   }
 
   handleChangeusername(event) {
+    event.preventDefault();
     this.setState({username: event.target.value});
   }
 
@@ -89,6 +90,8 @@ class SelectRoom extends React.Component {
 
   // 部屋を作成する
   handleSubmit(event) {
+    event.preventDefault();
+
     if(this.state.roomname===""||this.state.username===""){
       alert("空欄を埋めてください!");
       return;
@@ -102,7 +105,6 @@ class SelectRoom extends React.Component {
     }
 
     if(window.confirm('部屋名:'+ this.state.roomname + ' で部屋を作成しますか？')){
-        event.preventDefault();
         this.sendMessage(event);
     
         // 0.5秒後ゲーム画面に遷移する setTimeoutでゴリ押し...
@@ -118,6 +120,8 @@ class SelectRoom extends React.Component {
 
   // 部屋に参加する
   handleAlternate(event) {
+    event.preventDefault();
+
     if(this.state.roomname===""||this.state.username===""){
       alert("空欄を埋めてください!");
       return;
