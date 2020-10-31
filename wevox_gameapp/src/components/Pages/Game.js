@@ -38,7 +38,7 @@ class Game extends React.Component {
       // 5秒後，サーバにメッセージを送り，手札を取得する
       setTimeout(() => {
         this.first_regis()
-      }, 5000)
+      }, 2000)
     }
 
     

@@ -5,7 +5,7 @@ class GameChannel < ApplicationCable::Channel
 
   def subscribed
     stream_from "game_channel_#{params[:id]}"
-    logger.info 'game:接続した'    
+    logger.info 'game:接続した'
   end
 
   def unsubscribed
