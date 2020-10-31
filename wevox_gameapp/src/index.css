@@ -56,71 +56,6 @@ body {
   font-size: 25px;
 }
 
-.test {
-  text-align:right;
-  float:right;
-}
-
-
-.wrapper {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-auto-rows: 15em;
-  grid-auto-columns: 10em;
-  grid-gap: 8em;
-  margin-top: 2em;
-  margin-left: 6em;
-  margin-right: 6em;
-}
-.wrapper > div {
-  border-radius: 5px;
-  background: rgb(250, 250, 250);
-  border: 2px solid rgb(79,185,227);
-  padding: 1em;
-}
-
-
-.userbox {
-  border: 1px solid #333333;
-}
-
-.userbox p{
-  text-align: center;
-  font-size: 25px;
-  margin-bottom: 0.5em;
-}
-
-.usertextbox {
-  margin-top: 3em;
-}
-
-.waitroomheader {
-  background-color: rgb(0, 140, 255);
-  font-size: 60px;
-  text-align: center;
-  margin-left: 2em;
-  margin-right: 2em;
-}
-
-.p-startbutton {
-  position: fixed;
-  height: 50px;
-  width: 50px;
-  top:calc(50% - 50px/2);
-  left:calc(50% - 50px/2);
-}
-
-.startbutton {
-  position: absolute;
-  top:5.5em;
-  left: -4.3em;
-  width: 14em;
-}
-
-.startbutton button{
-  font-size: 32px;
-}
-
 
 .balloon {
   position: absolute;                /* 親要素を基準 */
@@ -138,8 +73,6 @@ body {
   width: 30%;
   margin-left: 8em;
 }
-
-
 
 .roomlist{
   padding: 10px; 
@@ -260,6 +193,12 @@ body {
   font-size: 20px;
 }
 
+.waitroom .o_main{
+  margin-top: 2em;
+  margin-left: 6em;
+  margin-right: 6em;
+}
+
 /* Organisms */
 .o_hand .m_hand{
 
@@ -269,8 +208,43 @@ body {
 
 }
 
+.o_main .wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: 15em;
+  grid-auto-columns: 10em;
+  grid-gap: 8em;
+}
+
+.o_main .button {
+  position: absolute;
+  top:53%;
+  left: 50%;
+  width: 14em;
+  font-size: 32px;
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+}
+
 /* Molecules */
 /* Atomsのスタイルのみ，自身のあれこれは設定しない */
+
+.m_main .text{
+  text-align: center;
+  font-size: 40px;
+}
+
+.m_main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 5px;
+  background: rgb(250, 250, 250);
+  border: 2px solid rgb(79,185,227);
+}
+
 .m_hand .card{
   background: #fff;
   height: 240px;
@@ -334,6 +308,14 @@ body {
 
 .deck:hover .balloon{/*ホバー時*/
   display: inline;
+}
+
+.m_header .header {
+  background-color: rgb(0, 140, 255);
+  font-size: 60px;
+  text-align: center;
+  margin-left: 2em;
+  margin-right: 2em;
 }
 
 /* Atoms */
