@@ -35,10 +35,10 @@ class Game extends React.Component {
       console.log(roomuser);
       //console.log(this.props.history);
       
-      // 0.5秒後，サーバにメッセージを送り，手札を取得する
+      // 5秒後，サーバにメッセージを送り，手札を取得する
       setTimeout(() => {
         this.first_regis()
-      }, 500)
+      }, 5000)
     }
 
     
