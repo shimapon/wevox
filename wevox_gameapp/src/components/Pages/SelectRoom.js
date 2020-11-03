@@ -6,10 +6,9 @@ import Form from '../Organisms/Form'
 import RoomList from '../Organisms/RoomList'
 
 
-
-let enterRoomid='1'
-let enterRoomid2 = '1'
-
+// 参加する場合と作成した場合の変数をそれぞれ宣言しておく
+let createRoomid ='1'
+let enterRoomid = '1'
 
 class SelectRoom extends React.Component {
   constructor(props) {
@@ -23,6 +22,7 @@ class SelectRoom extends React.Component {
       roomname: '',
       username: '',
     };
+    
     this.handleChangeroomname = this.handleChangeroomname.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChangeusername = this.handleChangeusername.bind(this);
@@ -62,7 +62,7 @@ class SelectRoom extends React.Component {
     }
 
     // 部屋作成した際に，受け取るmessages最後のid(作成した部屋のID)を取得する
-    enterRoomid = messages.slice(-1)[0].id;
+    createRoomid = messages.slice(-1)[0].id;
 
     this.setState({
       rooms:served_roomlist,
@@ -112,10 +112,10 @@ class SelectRoom extends React.Component {
     if(window.confirm('部屋名:'+ this.state.roomname + ' で部屋を作成しますか？')){
         this.sendMessage(event);
     
-        // 0.5秒後ゲーム画面に遷移する setTimeoutでゴリ押し...
+        // 1秒後ゲーム画面に遷移する setTimeoutでゴリ押し...
         setTimeout(() => {
-          this.handleToAppPage(enterRoomid)
-        }, 500)
+          this.handleToAppPage(createRoomid)
+        }, 1000)
     }
     else{
         /* キャンセルの時の処理 */
@@ -141,7 +141,7 @@ class SelectRoom extends React.Component {
           return;
         }
         else{
-          enterRoomid2 = room[0]
+          enterRoomid = room[0]
           break;
         }
       }
@@ -151,7 +151,7 @@ class SelectRoom extends React.Component {
       event.preventDefault();
       this.sendMessage(event);
       setTimeout(() => {
-        this.handleToAppPage(enterRoomid2)
+        this.handleToAppPage(enterRoomid)
       }, 500)
     }
     else{

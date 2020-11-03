@@ -6,11 +6,11 @@ import Button from '../Atoms/Button';
 
 // 手札のコンポーネント
 class Main extends React.Component {
-    renderUserbox(username) {    
+    renderUserbox(username, i) {    
         return (
             <MMain
                 username={username}
-                key={username}
+                key={'userlist' + i}
             />
         );
     }
@@ -19,8 +19,8 @@ class Main extends React.Component {
     return (
         <div className="o_main">
             <div className="wrapper">
-                {this.props.roomusers.map((user) => {
-                    return this.renderUserbox(user)
+                {this.props.roomusers.map((user, index) => {
+                    return this.renderUserbox(user, index)
                 })}
             </div>
 

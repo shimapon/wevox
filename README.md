@@ -1,2 +1,0 @@
-# wevox
-techtrainのmissionです．
