@@ -1,6 +1,11 @@
 import React from 'react';
 import { ActionCableConsumer } from 'react-actioncable-provider';
 import '../../index.css';
+import Title from '../Atoms/Title'
+import Form from '../Organisms/Form'
+import RoomList from '../Organisms/RoomList'
+
+
 
 let enterRoomid='1'
 let enterRoomid2 = '1'
@@ -18,7 +23,7 @@ class SelectRoom extends React.Component {
       roomname: '',
       username: '',
     };
-    this.handleChange = this.handleChange.bind(this);
+    this.handleChangeroomname = this.handleChangeroomname.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChangeusername = this.handleChangeusername.bind(this);
     this.handleAlternate = this.handleAlternate.bind(this)
@@ -71,7 +76,7 @@ class SelectRoom extends React.Component {
     console.log('SelectRoom: successfully connected to cable! woohoo!');
   }
 
-  handleChange(event) {
+  handleChangeroomname(event) {
     event.preventDefault();
     this.setState({roomname: event.target.value});
   }
@@ -171,13 +176,9 @@ class SelectRoom extends React.Component {
    })
   }
 
-
-
-  
-
   render() {
     return (
-      <div>
+      <div className="selectroom">
         {
           this.acc || (this.acc = <ActionCableConsumer
             ref='shareChannel'
@@ -186,77 +187,27 @@ class SelectRoom extends React.Component {
             onReceived={this.handleReceived}
           />)
         }
-        <div className="title">
-          <h1>wevox value card</h1>
+        <div className="selectroom-title">
+          <Title
+            value="wevox value cards"
+          />
         </div>
-        <div className="yoko">
-          <div className="p-roomlist">
-            <p className="roomlist_title">部屋一覧</p>
-            <div className="roomlist_label">
-              <p>部屋名</p>
-              <p className="roomlist_num">人数</p>
-            </div>
-              <ListningRoom rooms={this.state.rooms} onClick={(i)=>this.handleAdd(i)}/>
-          </div>
-          <div className="p-form">
-            <form className="form2">
-              <div className="form-label">
-                <div className="form-roomname">
-                    <p>部屋名:</p>
-                    <input type="text" value={this.state.roomname} onChange={this.handleChange} />
-                </div>
-                <div className="nick-name">
-                  <p>ニックネーム:</p>
-                  <input type="text" value={this.state.username} onChange={this.handleChangeusername} />
-                </div>
-                
-              </div>
-              <div className="form-button">
-                <input type="submit" value="部屋作成" onClick={this.handleSubmit}/>
-                <input type="submit" value="部屋に参加" onClick={this.handleAlternate} className="aaa"/>
-              </div>
-            </form>
-          </div>
+        <div className="selectroom-main">
+          <RoomList
+            rooms={this.state.rooms}
+            onClick={this.handleAdd}
+          />
+          <Form
+            roomname={this.state.roomname}
+            username={this.state.username}
+            handleChangeroomname={this.handleChangeroomname}
+            handleChangeusername={this.handleChangeusername}
+            handleSubmit={this.handleSubmit}
+            handleAlternate={this.handleAlternate}
+          />
         </div>
     </div>
     );
   }
 }
-
-function ListningRoom(props) {
-  const rooms = props.rooms;
-  if (rooms.length===0) {
-    return <NotExistRoom />;
-  }
-  return <ExistRoom rooms={props.rooms} onClick={(i)=>props.onClick(i)}/>;
-}
-
-
-function NotExistRoom(props) {
-  return(
-    <div className="roomlist">
-      <div>
-        <li className="roomcard">
-          <p>部屋が立てられていません</p>
-        </li>
-      </div>
-    </div>
-)}
-
-function ExistRoom(props) {
-  return(
-    <div className="roomlist">
-      <div>
-      {props.rooms.map((room) => (
-        <div key={room}>
-          <li className="roomcard" onClick={(i)=>props.onClick(room[1])}>
-            <a><div className="test">{room[2]}人</div>{room[1]}</a>
-          </li>
-        </div>
-      ))}
-      </div>
-    </div>
-  )
-}
-
 export default SelectRoom
