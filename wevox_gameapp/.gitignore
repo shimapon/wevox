@@ -25,3 +25,5 @@ yarn-error.log*
 
 # test用のscript
 /src/components/Pages/Test.js
+
+Test.js

@@ -19,104 +19,48 @@ body {
   flex-direction: column;
 }
 
-.p-roomlist{
-  width: 30%;
-  margin-left: 8em;
+.justified-right{
+  text-align:right;
+  float:right;
 }
 
-.roomlist{
-  padding: 10px; 
-  margin-bottom: 10px; 
-  border: 1px solid #333333;
+/* Pages */
+
+.selectroom {
+  background-image: url("./valuecards_mainbackground.png");
 }
 
-.roomcard{
-  list-style: none;
+.selectroom-title {
+  text-align: center;
+  font-size: 32px;
+  font-weight: bold;
 }
 
-.roomcard a{
-	color: rgb(0, 0, 0);
-	display: block;
-	padding: 5px 10px;
-  text-decoration: none;
-  border: 1px solid #999;
-}
-.roomcard a:hover {
-  background-color:#000000;
-  color: white;
-}
-
-.roomlist_label{
-  display: flex;
-  padding-left: 1em;
-  padding-right: 1em;
-  border: 1px solid;
-  color: white;
-  background-color: black;
-}
-
-.roomlist_num {
-  margin:1em 0 0 auto
-}
-
-.roomlist_title{
+.o-roomlist-title .text{
   text-align: center;
   background-color: aquamarine;
   font-size: 24px;
 }
 
-.yoko{
+
+.selectroom-main {
   display: flex;
 }
 
-.aaa {
-  float: right;
-}
-
-.form2{
-  margin-right: 4em;
-  margin-top: 6em;
-  margin-left: 4em;
-  margin-bottom: 4em;
-}
-
-.form-roomname{
-  display: flex;
-}
-
-.nick-name{
-  margin-top: 2em;
-  margin-bottom: 2em;
-  display: flex;
-}
-
-.form-roomname input{
-  margin: 1em 0.5em 0.5em auto;
-}
-
-.nick-name input{
-  margin: 1em 0.5em 0.5em auto;
-}
-
-.p-form{
+.selectroom-main .o-form {
   width: 50%;
-  margin-right: 2em;
   padding: 10px; 
-  margin-bottom: 10px; 
   border: 1px solid #333333;
-  margin-left: 2em;
+  margin: 6em 4em 4em 4em;
 }
 
-.form-button {
-  width: 70%;
-  margin-left: 3em;
+
+.selectroom-main .o-roomlist{
+  width: 30%;
+  margin-left: 8em;
 }
 
-.title{
-  text-align: center;
-}
 
-/* Pages */
 .p_hand {
   margin-top: 50px;
 }
@@ -164,13 +108,44 @@ body {
 
 
 /* Organisms */
-.o_hand .m_hand{
 
+
+.listning-roomlist{
+  padding: 10px; 
+  margin-bottom: 10px; 
+  border: 1px solid #333333;
+  background-color: white;
 }
 
-.o_field {
-
+.listning-roomlist li{
+  list-style: none;
 }
+
+.listning-roomlist a{
+	color: rgb(0, 0, 0);
+	display: block;
+	padding: 5px 10px;
+  text-decoration: none;
+  border: 1px solid #999;
+}
+
+.listning-roomlist a:hover {
+  background-color:#000000;
+  color: white;
+}
+
+.o-form {
+  background-color: white;
+}
+
+.o-form .formlabel {
+  margin-bottom: 2em;
+}
+
+.o-form input{
+  margin: 1em 0.5em 0.5em auto;
+}
+
 
 .o_main .wrapper {
   display: grid;
@@ -182,7 +157,7 @@ body {
 
 .o_main .button {
   position: absolute;
-  top:53%;
+  top:57%;
   left: 50%;
   width: 14em;
   font-size: 32px;
@@ -204,6 +179,36 @@ body {
 
 /* Molecules */
 /* Atomsのスタイルのみ，自身のあれこれは設定しない */
+
+.m-roomlabel{
+  display: flex;
+  padding-left: 1em;
+  padding-right: 1em;
+  border: 1px solid;
+  color: white;
+  background-color: black;
+}
+
+.list li{
+  list-style: none;
+}
+
+.formbutton {
+  display: flex;
+  column-gap: 1em;
+}
+
+.formlabel {
+  row-gap: 1em;
+}
+
+.formlabel div{
+  display: flex;
+}
+
+.formbutton input{
+  width: 70%;
+}
 
 .m_main .text{
   text-align: center;
