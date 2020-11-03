@@ -33,24 +33,17 @@ class Game extends React.Component {
       console.log("mynameは: "+myname);
       console.log("部屋に入っているユーザは")
       console.log(roomuser);
-      //console.log(this.props.history);
+
       
-      // 5秒後，サーバにメッセージを送り，手札を取得する
+      // 1.5秒後，サーバにメッセージを送り，手札を取得する
       setTimeout(() => {
         this.first_regis()
-      }, 2000)
+      }, 1500)
     }
-
-    
-
 
     // 手札クリック時
     handleHandClick(i) {
-      console.log(myname);
-      console.log(roomuser);
-      console.log(this.state.now_player);
-      console.log(roomuser[this.state.now_player]);
-      if (myname!==roomuser[this.state.now_player] || this.state.cards.length!==6){
+      if (myname!==roomuser[this.state.now_player] || this.state.cards.length!==6 || this.state.num_deck===-1){
         return;
       }
 
@@ -64,7 +57,7 @@ class Game extends React.Component {
   
     // 捨て札クリック時
     handleTrashClick(i) {
-      if (myname!==roomuser[this.state.now_player] || this.state.cards.length!==5){
+      if (myname!==roomuser[this.state.now_player] || this.state.cards.length!==5 || this.state.num_deck===-1){
         return;
       }
       this.setState({
@@ -76,7 +69,7 @@ class Game extends React.Component {
   
     // 山札クリック時
     handleDeckClick(){
-      if (myname!==roomuser[this.state.now_player] || this.state.cards.length!==5){
+      if (myname!==roomuser[this.state.now_player] || this.state.cards.length!==5 || this.state.num_deck===-1){
         return;
       }
       
@@ -128,7 +121,7 @@ class Game extends React.Component {
           state: { owncards: message[1] }
        })
       }
-      if(this.state.num_deck==0) finishflag=true
+      if(this.state.num_deck===0) finishflag=true
     }
   
     render() {
@@ -136,7 +129,11 @@ class Game extends React.Component {
       myname=this.props.history.location.state.myname
       let text ="";
 
-      if(myname!==roomuser[this.state.now_player]){
+      
+      if(this.state.num_deck===-1){
+        text = "山札情報を取得中です..."
+      }
+      else if(myname!==roomuser[this.state.now_player]){
         text = roomuser[this.state.now_player]+"さんのターンです";
       }
       else if (this.state.playstate === 0){
@@ -183,8 +180,4 @@ class Game extends React.Component {
     }
   }
   
-  
-  
-  // ========================================
-
   export default Game
