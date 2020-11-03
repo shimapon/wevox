@@ -1,44 +1,51 @@
 import React from 'react';
 import '../../index.css';
-import Main from '../Organisms/Main';
+import ResultMain from '../Organisms/ResultMain';
+import Button from '../Atoms/Button';
 import MHeader from '../Molecules/Header';
 
-// 親コンポーネント，Game
+
+
 class Test extends React.Component {
-    constructor(props){
-      super(props)
-      this.state = {
-        roomname:"test部屋",
-        roomuser1:"Aさん",
-        roomuser2:"Bさん",
-        roomuser3:"Cさん",
-        roomuser4:"Dさん",
-      }
-    }
-
-    onClick() {
-      console.log("aa");
-    }
-
-    render() {  
-      return (
-        <div className="waitroom">
-          <MHeader
-              headertext={this.state.roomname}
-          />
-          <Main
-              roomusers={[
-                  this.state.roomuser1, 
-                  this.state.roomuser2, 
-                  this.state.roomuser3, 
-                  this.state.roomuser4,
-              ]}
-              onClick={this.onClick}
-              text={"ゲーム開始"}
-          />
-        </div>
-      );
+  constructor(props){
+    super(props)
+    this.state = {
+      owncards:[
+        ["A",["大切","心","まさき","ないちゅ","画面"]],
+        ["B",["大切","心","まさき","ないちゅ","画面"]],
+        ["C",["大切","心","まさき","ないちゅ","画面"]],
+        ["D",["大切","心","まさき","ないちゅ","画面"]]
+      ]
     }
   }
+
+  handleClickexitbutton(e){
+    alert("退出します．")
+    this.props.history.push('/Top')
+  }
+
+  render(){
+
+    return(
+      <div className="result">
+          <MHeader
+            headertext={"結果"}
+          />
+          <div className="p-result">
+            <ResultMain
+              owncards={this.state.owncards}
+            />
+
+          </div>
+          <div className="result-button">
+            <Button
+                text="退出"
+            />
+          </div>
+      </div>
+    )
+  }
+}
+
 
 export default Test
