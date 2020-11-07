@@ -3,8 +3,11 @@ class Room < ApplicationRecord
     belongs_to :user2, class_name: 'User', optional: true
     belongs_to :user3, class_name: 'User', optional: true
     belongs_to :user4, class_name: 'User', optional: true
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
+=======
+>>>>>>> 36e55ce86ecdc0c7fc85597e4f437ef7dce95de8
 
 
     def pushuserid(userid)
@@ -19,6 +22,7 @@ class Room < ApplicationRecord
         end
     end
 
+<<<<<<< HEAD
     def deleteuserid(username)
         if (self.user1.name==username) then
             self.update(user1_id:nil)
@@ -31,6 +35,8 @@ class Room < ApplicationRecord
         end
     end
 
+=======
+>>>>>>> 36e55ce86ecdc0c7fc85597e4f437ef7dce95de8
     def createReturnArray
         @roomuser=[]
 
@@ -44,5 +50,8 @@ class Room < ApplicationRecord
 
         return @roomuser
     end
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> 36e55ce86ecdc0c7fc85597e4f437ef7dce95de8
 end

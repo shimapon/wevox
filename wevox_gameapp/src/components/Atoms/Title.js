@@ -2,12 +2,12 @@ import React from 'react';
 import '../../index.css';
 
 // カード一枚のコンポーネント Atoms
-function Text(props){
+function Title(props){
   return(
-    <p className="text">
+    <h1 className="title">
         {props.value}
-    </p>
+    </h1>
   );
 }
 
-export default Text;
+export default Title;

@@ -43,15 +43,14 @@ class Game extends React.Component {
           this.refs.gameChannel.perform('first_regis', {message}) 
         }, 1500)
       }
+
     }
-
-    
-
 
     // 手札クリック時
     handleHandClick(i) {
 
       if (this.state.now_player !== my_index || this.state.cards.length !== 6){
+
         return;
       }
 
@@ -69,6 +68,7 @@ class Game extends React.Component {
       return;
     }
     
+
       this.setState({
         playstate:1,
       })
@@ -81,6 +81,7 @@ class Game extends React.Component {
     handleDeckClick(){
 
       if (this.state.now_player !== my_index || this.state.cards.length !== 5){
+
         return;
       }
 
@@ -193,6 +194,7 @@ class Game extends React.Component {
           trash:trash,
         })
       }
+
     }
   
     render() {
@@ -202,6 +204,7 @@ class Game extends React.Component {
         text = "山札情報を取得中です..."
       }
       else if(my_index!==this.state.now_player){
+
         text = roomuser[this.state.now_player]+"さんのターンです";
       }
       else if (this.state.playstate === 0){
@@ -248,8 +251,4 @@ class Game extends React.Component {
     }
   }
   
-  
-  
-  // ========================================
-
   export default Game
