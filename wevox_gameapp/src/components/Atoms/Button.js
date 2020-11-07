@@ -5,7 +5,7 @@ import '../../index.css';
 function Button(props){
   return(
     <button className="button" onClick={props.onClick}>
-        {props.text}
+      {props.text}
     </button>
   );
 }

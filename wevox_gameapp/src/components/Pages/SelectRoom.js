@@ -88,8 +88,6 @@ class SelectRoom extends React.Component {
 
   handleAdd(room) {
     this.setState({roomname: room});
-    // 「部屋に参加ボタン」を強調する
-
   }
 
 
@@ -162,7 +160,7 @@ class SelectRoom extends React.Component {
   }
 
   // サーバに部屋名とユーザ名を送信する
-  sendMessage = (event) => {
+  sendMessage(event) {
     event.preventDefault()
     const message = [this.state.roomname, this.state.username];
     this.refs.shareChannel.perform('send_message', {message}) 
@@ -187,11 +185,9 @@ class SelectRoom extends React.Component {
             onReceived={this.handleReceived}
           />)
         }
-        <div className="selectroom-title">
-          <Title
-            value="wevox value cards"
-          />
-        </div>
+        <Title
+          value="wevox value cards"
+        />
         <div className="selectroom-main">
           <RoomList
             rooms={this.state.rooms}

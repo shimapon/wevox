@@ -5,7 +5,7 @@ import '../../index.css';
 function Title(props){
   return(
     <h1 className="title">
-        {props.value}
+      {props.value}
     </h1>
   );
 }

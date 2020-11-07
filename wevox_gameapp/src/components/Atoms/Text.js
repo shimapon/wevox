@@ -5,7 +5,7 @@ import '../../index.css';
 function Text(props){
   return(
     <p className="text">
-        {props.value}
+      {props.value}
     </p>
   );
 }

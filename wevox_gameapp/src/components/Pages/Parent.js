@@ -2,13 +2,9 @@ import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Home from './Home';
 import App from './App';
-import Navbar from './Navbar';
 import Top from './Top';
 import Room from './Room'
 import Result from './Result'
-
-
-
 
 class Parent extends React.Component {
 
@@ -23,7 +19,6 @@ class Parent extends React.Component {
       <div className="Parent">
         <Router>
           <div>
-            <Navbar /><hr/>
             <Route exact path='/' component={Home}/>
             <Route path='/Top' component={Top}/>
             <Route path='/Room/:id' component={Room}/>

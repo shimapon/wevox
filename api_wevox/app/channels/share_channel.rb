@@ -28,6 +28,8 @@ class ShareChannel < ApplicationCable::Channel
     # Roomのuser_idで空いているところに左詰する
     @enterRoom=Room.find_by(name: roomname)
 
+
+    # 部屋が立てられている/部屋を立てる
     if (@enterRoom) then
       @enterRoomId=@enterRoom.pushuserid(user.id)
     else
@@ -40,7 +42,6 @@ class ShareChannel < ApplicationCable::Channel
     end
 
     ActionCable.server.broadcast("share_channel", Room.all)
-    #ActionCable.server.broadcast("share_channel", Roomなんだけどuser_idじゃなくて名前が入っている)
   end
 
 end
