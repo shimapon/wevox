@@ -1,10 +1,14 @@
 import React from 'react';
 import { ActionCableConsumer } from 'react-actioncable-provider';
 import '../../index.css';
+import Title from '../Atoms/Title'
+import Form from '../Organisms/Form'
+import RoomList from '../Organisms/RoomList'
 
-let enterRoomid='1'
-let enterRoomid2 = '1'
 
+// 参加する場合と作成した場合の変数をそれぞれ宣言しておく
+let createRoomid ='1'
+let enterRoomid = '1'
 
 class SelectRoom extends React.Component {
   constructor(props) {
@@ -12,13 +16,14 @@ class SelectRoom extends React.Component {
 
     this.handleReceived = this.handleReceived.bind(this);
 
+    // rooms:[部屋id, 部屋名, 部屋に入っている人数]
     this.state = {
-      rooms: ["A",0],
+      rooms: [],
       roomname: '',
       username: '',
-      message:[],
     };
-    this.handleChange = this.handleChange.bind(this);
+    
+    this.handleChangeroomname = this.handleChangeroomname.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChangeusername = this.handleChangeusername.bind(this);
     this.handleAlternate = this.handleAlternate.bind(this)
@@ -34,27 +39,33 @@ class SelectRoom extends React.Component {
   // ShareChannelからのメッセージを処理する．
   // 形式:
   // Room.all -> state更新
-  handleReceived(message) {
-    console.log("SelectRoom:message来た: ");
-    console.log(message);
-    //console.log(typeof message); //model.all だとObjectで来るみたい
-    const served_roomlist = [];
+  handleReceived(messages) {
+    console.log("SelectRoom:messages来た: ");
+    console.log(messages);
 
-    for (let i = 0; i < message.length; i++) {
-      let num_user=0
-      if (message[i].user1_id) num_user++;
-      if (message[i].user2_id) num_user++;
-      if (message[i].user3_id) num_user++;
-      if (message[i].user4_id) num_user++;
-      served_roomlist.push([message[i].name, num_user])
+
+    // 作成されている部屋がない場合
+    if(messages.length===0){
+      return;
     }
 
-    // 部屋作成した際に，message最後のidを取得する
-    enterRoomid=message.slice(-1)[0].id;
+    //console.log(typeof messages); //model.all だとObjectで来るみたい
+    const served_roomlist = [];
+
+    for (let message of messages) {
+      let num_user=0
+      if (message.user1_id) num_user++;
+      if (message.user2_id) num_user++;
+      if (message.user3_id) num_user++;
+      if (message.user4_id) num_user++;
+      if(num_user!==0) served_roomlist.push([message.id, message.name, num_user])
+    }
+
+    // 部屋作成した際に，受け取るmessages最後のid(作成した部屋のID)を取得する
+    createRoomid = messages.slice(-1)[0].id;
 
     this.setState({
       rooms:served_roomlist,
-      message:message
     })
     console.log("state_roomsは: ")
     console.log(this.state.rooms);
@@ -62,87 +73,69 @@ class SelectRoom extends React.Component {
   }
 
   handleConnected() {
-    console.log('successfully connected to cable! woohoo!');
+    console.log('SelectRoom: successfully connected to cable! woohoo!');
   }
 
-  handleChange(event) {
+  handleChangeroomname(event) {
+    event.preventDefault();
     this.setState({roomname: event.target.value});
   }
 
   handleChangeusername(event) {
+    event.preventDefault();
     this.setState({username: event.target.value});
   }
 
   handleAdd(room) {
     this.setState({roomname: room});
+    // 「部屋に参加ボタン」を強調する
+
   }
 
 
-  // 部屋を作成
+  // 部屋を作成する
   handleSubmit(event) {
-    if(this.state.roomname==""||this.state.username==""){
-      console.log("作成アラート");
+    event.preventDefault();
 
+    if(this.state.roomname===""||this.state.username===""){
       alert("空欄を埋めてください!");
       return;
     }
 
-    for(var i=0; i<this.state.rooms.length;i++){
-      if(this.state.roomname==this.state.rooms[i][0]){
-        alert("同名の部屋が存在します，名前を変えるか,部屋に参加するボタンを押してください");
+    for(let room of this.state.rooms){
+      if(this.state.roomname===room[1]){
+        alert("同名の部屋が存在します，名前を変えるか, 部屋に参加するボタンを押してください");
         return;
       }
     }
 
-
-    alert('submit 部屋名:' + this.state.roomname
-    +'  ユーザネーム: '+ this.state.username);
-    event.preventDefault();
-    this.sendMessage(event);
-    // 0.5秒後ゲーム画面に遷移する setTimeoutでゴリ押し...
-    setTimeout(() => {
-      this.handleToAppPage(enterRoomid)
-    }, 500)
-
+    if(window.confirm('部屋名:'+ this.state.roomname + ' で部屋を作成しますか？')){
+        this.sendMessage(event);
+    
+        // 1秒後ゲーム画面に遷移する setTimeoutでゴリ押し...
+        setTimeout(() => {
+          this.handleToAppPage(createRoomid)
+        }, 1000)
+    }
+    else{
+        /* キャンセルの時の処理 */
+        return false;
+    }
   }
 
   // 部屋に参加する
   handleAlternate(event) {
-<<<<<<< Updated upstream
-    if(this.state.roomname==""||this.state.username==""){
-      console.log("参加アラート");
-=======
     event.preventDefault();
-    let roomexistflag=false
 
     if(this.state.roomname===""||this.state.username===""){
->>>>>>> Stashed changes
       alert("空欄を埋めてください!");
       return;
     }
 
-
     // 参加時はフォームの部屋名に入っている文字列と同一の部屋からidを取得する
-<<<<<<< Updated upstream
-    for(var i=0;i<this.state.message.length;i++){
-      if(this.state.roomname===this.state.message[i].name){
-        enterRoomid2=this.state.message[i].id
-        break;
-      }
-    }
-
-    alert('submit 部屋名:' + this.state.roomname
-    +'  ユーザネーム: '+ this.state.username);
-    event.preventDefault();
-    this.sendMessage(event);
-    setTimeout(() => {
-      this.handleToAppPage(enterRoomid2)
-    }, 500)
-=======
     // 部屋に4人入っていたら警告を出す
     for(let room of this.state.rooms) {
       if(this.state.roomname===room[1]){
-        roomexistflag=true
         if(room[2] >= 4){
           alert("この部屋は定員に達しています");
           return;
@@ -152,11 +145,6 @@ class SelectRoom extends React.Component {
           break;
         }
       }
-    }
-
-    if (!roomexistflag) {
-      alert("その名前の部屋は存在しません");
-      return;
     }
 
     if(window.confirm('部屋名:'+ this.state.roomname + ' に参加しますか？')){
@@ -171,7 +159,6 @@ class SelectRoom extends React.Component {
       return false;
     }
 
->>>>>>> Stashed changes
   }
 
   // サーバに部屋名とユーザ名を送信する
@@ -189,11 +176,9 @@ class SelectRoom extends React.Component {
    })
   }
 
-  
-
   render() {
     return (
-      <div>
+      <div className="selectroom">
         {
           this.acc || (this.acc = <ActionCableConsumer
             ref='shareChannel'
@@ -202,52 +187,27 @@ class SelectRoom extends React.Component {
             onReceived={this.handleReceived}
           />)
         }
-        <div className="title">
-          <h1>wevox value card</h1>
+        <div className="selectroom-title">
+          <Title
+            value="wevox value cards"
+          />
         </div>
-        <div className="yoko">
-          <div className="p-roomlist">
-            <p className="roomlist_title">部屋一覧</p>
-            <div className="roomlist_label">
-              <p>部屋名</p>
-              <p className="roomlist_num">人数</p>
-            </div>
-
-              <div className="roomlist">
-                <div>
-                {this.state.rooms.map((room) => (
-                  <div key={room}>
-                    <li className="roomcard" onClick={(i)=>this.handleAdd(room[0])}>
-                      <a href="#">{room[0]} {room[1]}人</a>
-                    </li>
-                  </div>
-                ))}
-                </div>
-              </div>
-          </div>
-          <div className="p-form">
-            <form className="form2">
-              <div className="form-label">
-                <div className="form-roomname">
-                    <p>部屋名:</p>
-                    <input type="text" value={this.state.roomname} onChange={this.handleChange} />
-                </div>
-                <div className="nick-name">
-                  <p>ニックネーム:</p>
-                  <input type="text" value={this.state.username} onChange={this.handleChangeusername} />
-                </div>
-                
-              </div>
-              <div className="form-button">
-                <input type="submit" value="部屋作成" onClick={this.handleSubmit}/>
-                <input type="submit" value="部屋に参加" onClick={this.handleAlternate} className="aaa"/>
-              </div>
-            </form>
-          </div>
+        <div className="selectroom-main">
+          <RoomList
+            rooms={this.state.rooms}
+            onClick={this.handleAdd}
+          />
+          <Form
+            roomname={this.state.roomname}
+            username={this.state.username}
+            handleChangeroomname={this.handleChangeroomname}
+            handleChangeusername={this.handleChangeusername}
+            handleSubmit={this.handleSubmit}
+            handleAlternate={this.handleAlternate}
+          />
         </div>
     </div>
     );
   }
 }
-
 export default SelectRoom

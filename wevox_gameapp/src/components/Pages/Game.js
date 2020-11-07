@@ -35,15 +35,6 @@ class Game extends React.Component {
       console.log("mynameは: "+myname);
       console.log("部屋に入っているユーザは")
       console.log(roomuser);
-<<<<<<< Updated upstream
-      //console.log(this.props.history);
-      
-      // 0.5秒後，サーバにメッセージを送り，手札を取得する
-      setTimeout(() => {
-        this.first_regis()
-      }, 500)
-=======
-
 
       if (myname === roomuser[0]){
         // 1.5秒後，サーバにメッセージを送り，手札を取得する
@@ -52,8 +43,6 @@ class Game extends React.Component {
           this.refs.gameChannel.perform('first_regis', {message}) 
         }, 1500)
       }
-
->>>>>>> Stashed changes
     }
 
     
@@ -61,15 +50,8 @@ class Game extends React.Component {
 
     // 手札クリック時
     handleHandClick(i) {
-<<<<<<< Updated upstream
-      console.log(myname);
-      console.log(roomuser);
-      console.log(this.state.now_player);
-      console.log(roomuser[this.state.now_player]);
-      if (myname!==roomuser[this.state.now_player] || this.state.cards.length!==6){
-=======
+
       if (this.state.now_player !== my_index || this.state.cards.length !== 6){
->>>>>>> Stashed changes
         return;
       }
 
@@ -83,16 +65,10 @@ class Game extends React.Component {
   
     // 捨て札クリック時
     handleTrashClick(i) {
-<<<<<<< Updated upstream
-      if (myname!==roomuser[this.state.now_player] || this.state.cards.length!==5){
-        return;
-      }
-=======
       if (this.state.now_player !== my_index || this.state.cards.length !== 5){
       return;
     }
     
->>>>>>> Stashed changes
       this.setState({
         playstate:1,
       })
@@ -103,11 +79,8 @@ class Game extends React.Component {
   
     // 山札クリック時
     handleDeckClick(){
-<<<<<<< Updated upstream
-      if (myname!==roomuser[this.state.now_player] || this.state.cards.length!==5){
-=======
+
       if (this.state.now_player !== my_index || this.state.cards.length !== 5){
->>>>>>> Stashed changes
         return;
       }
 
@@ -202,9 +175,7 @@ class Game extends React.Component {
         }
 
       }
-<<<<<<< Updated upstream
-      if(this.state.num_deck==0) finishflag=true
-=======
+
       // トラッシュ
       else {
         card = message[2]
@@ -222,21 +193,15 @@ class Game extends React.Component {
           trash:trash,
         })
       }
->>>>>>> Stashed changes
     }
   
     render() {
       let text ="";
-<<<<<<< Updated upstream
 
-      if(myname!==roomuser[this.state.now_player]){
-=======
-      
       if(this.state.deck.length===0){
         text = "山札情報を取得中です..."
       }
       else if(my_index!==this.state.now_player){
->>>>>>> Stashed changes
         text = roomuser[this.state.now_player]+"さんのターンです";
       }
       else if (this.state.playstate === 0){
