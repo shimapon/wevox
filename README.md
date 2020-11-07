@@ -17,6 +17,8 @@ wevox values card:https://wevox.io/valuescard
 ・ゲーム画面で他のユーザの操作が見られていない．（カードゲームではあまりこういう例はないように感じる)  
 ・[本番環境]reloadするとアクセスできなくなる   
 
+## アプリの動作
+![wevox](https://user-images.githubusercontent.com/38938327/98434168-a23c8280-2110-11eb-911b-12822beb715a.gif)
 
 ## api_webox
 **Rails**APIサーバーのファイル．  
