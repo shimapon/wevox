@@ -13,18 +13,9 @@ class GameChannel < ApplicationCable::Channel
   # 初めの手札配布．初めのindexを持つプレイヤーのみが接続する
   def first_regis(data)
     deck = Card.pluck(:id).shuffle
-    room = Room.find(params[:id])
-    user_hand=[]
+    @room = Room.find(params[:id])
 
-    # 中間テーブルを作成する．
-    for userid in [room.user1_id, room.user2_id, room.user3_id, room.user4_id]
-      if(userid) then
-        for _ in 0..4
-          UserCard.create(user_id:userid, card_id:deck.pop)
-        end
-        user_hand.push(User.find(userid).card.pluck(:title))
-      end
-    end
+    user_hand, deck = @room.createReturnUsersHand(deck)
 
     deck_name = []
     for card in deck

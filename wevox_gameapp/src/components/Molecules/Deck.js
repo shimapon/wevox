@@ -9,7 +9,7 @@ function Deck(props){
       <Card
         value=""
         onClick={()=>props.onClick()}
-        />
+      />
       <span className="balloon">残り{props.value}枚</span>
     </div>
   );
