@@ -51,7 +51,7 @@ class Card < ApplicationRecord
 end
 ```
 
-user_card.rb  
+user_card.rb: 中間テーブル  
 ```ruby
 class UserCard < ApplicationRecord
     belongs_to :user, optional: true
