@@ -46,7 +46,6 @@ class TeamsChannel < ApplicationCable::Channel
   # ゲーム画面に遷移させる
   def move_gameapp(data)
     # 部屋を削除する
-    Room.find_by(id: params[:id]).destroy
     ActionCable.server.broadcast("teams_channel_#{params[:id]}", "start")
   end
 end

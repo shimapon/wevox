@@ -182,7 +182,7 @@ class Game extends React.Component {
         card = message[2]
 
         // 該当のカードをトラッシュから削除
-        var index = trash.indexOf(card);
+        index = trash.indexOf(card);
         if (index > -1) {
           trash.splice(index, 1);
         }

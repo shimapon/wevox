@@ -2,8 +2,7 @@ import React from 'react';
 import '../../index.css';
 import { ActionCableConsumer } from 'react-actioncable-provider';
 import Main from '../Organisms/Main';
-import MHeader from '../Molecules/Header';
-
+import Header from '../Organisms/Header';
 
 
 // 親コンポーネント，Game
@@ -19,6 +18,7 @@ class WaitRoom extends React.Component {
         roomuser4:undefined,
       }
       this.onClick = this.onClick.bind(this);
+      this.handleBackPage = this.handleBackPage.bind(this)
     }
 
     // TeamsChannelからのメッセージを処理する．
@@ -46,10 +46,28 @@ class WaitRoom extends React.Component {
 
     }
 
+    // 退出処理
+    handleBackPage(){
+
+        if(window.confirm("この部屋から退出しますか？")){
+            const message = [this.props.history.location.state.myname];
+
+            this.refs.teamsChannel.perform('back_toppage', {message})
+            this.props.history.push({
+                pathname: '/Top',
+             })
+        }
+        else{
+            /* キャンセルの時の処理 */
+            return false;
+        }
+    }
+
     // ゲーム画面に遷移する
     handleToGamePage() {
        console.log("ゲーム画面に変わります");
-       var roomuser=[this.state.roomuser1]
+       var roomuser=[]
+       if(this.state.roomuser1) roomuser.push(this.state.roomuser1)
        if(this.state.roomuser2) roomuser.push(this.state.roomuser2)
        if(this.state.roomuser3) roomuser.push(this.state.roomuser3)
        if(this.state.roomuser4) roomuser.push(this.state.roomuser4)
@@ -68,7 +86,7 @@ class WaitRoom extends React.Component {
             // 渡すのはなんでも良い
             const message = ["hoge"];
 
-            this.refs.teamsChannel.perform('move_gameapp', {message}) 
+            this.refs.teamsChannel.perform('move_gameapp', {message})
         }
         else{
             /* キャンセルの時の処理 */
@@ -87,8 +105,10 @@ class WaitRoom extends React.Component {
                         onReceived={this.handleReceived}
                     />)
                 }
-                <MHeader
+                <Header
                     headertext={this.state.roomname}
+                    onClick={this.handleBackPage}
+                    text={"←"}
                 />
                 <Main
                     roomusers={[

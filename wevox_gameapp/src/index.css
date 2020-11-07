@@ -133,13 +133,16 @@ body {
   background-color: white;
 }
 
-
 .o-form .formlabel {
   margin-bottom: 2em;
 }
 
 .o-form input {
   margin: 1em 0.5em 0.5em auto;
+}
+
+.o_header .button {
+  font-size: 3em;
 }
 
 .o_main .wrapper {
