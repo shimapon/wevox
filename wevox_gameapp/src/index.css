@@ -133,45 +133,13 @@ body {
   background-color: white;
 }
 
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-.yoko{
-  display: flex;
-}
 
-.aaa {
-  float: right;
-=======
-.o_header .button {
-  font-size: 3em;
-}
-
-.o_main .wrapper {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-auto-rows: 15em;
-  grid-auto-columns: 10em;
-  grid-gap: 8em;
-}
-
-.o_main .button {
-  position: absolute;
-  top: 12.8em;    
-  left: 50%;
-  width: 14em;
-  font-size: 32px;
-  transform: translateX(-50%);
-  -webkit-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
->>>>>>> Stashed changes
-=======
 .o-form .formlabel {
   margin-bottom: 2em;
 }
 
 .o-form input {
   margin: 1em 0.5em 0.5em auto;
->>>>>>> 36e55ce86ecdc0c7fc85597e4f437ef7dce95de8
 }
 
 .o_main .wrapper {
