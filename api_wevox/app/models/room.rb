@@ -4,7 +4,6 @@ class Room < ApplicationRecord
     belongs_to :user3, class_name: 'User', optional: true
     belongs_to :user4, class_name: 'User', optional: true
 
-
     def pushuserid(userid)
         if (self.user1_id.nil?) then
             self.update(user1_id:userid)
@@ -16,6 +15,19 @@ class Room < ApplicationRecord
             self.update(user4_id:userid)
         end
     end
+
+    def deleteuserid(username)
+        if (self.user1.name==username) then
+            self.update(user1_id:nil)
+        elsif (self.user2.name==username) then
+            self.update(user2_id:nil)
+        elsif (self.user3.name==username) then
+            self.update(user3_id:nil)
+        else
+            self.update(user4_id:nil)
+        end
+    end
+
 
     def createReturnArray
         @roomuser=[]
@@ -30,4 +42,5 @@ class Room < ApplicationRecord
 
         return @roomuser
     end
+
 end

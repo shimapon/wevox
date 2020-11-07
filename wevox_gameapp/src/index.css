@@ -141,6 +141,10 @@ body {
   margin: 1em 0.5em 0.5em auto;
 }
 
+.o_header .button {
+  font-size: 3em;
+}
+
 .o_main .wrapper {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
