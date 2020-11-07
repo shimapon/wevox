@@ -9,7 +9,7 @@ TechTrain:https://techbowl.co.jp/techtrain
 wevox values card:https://wevox.io/valuescard
 
 ## Readme更新日
-11/1
+11/7
 
 ## 課題
 ・退出処理 -> Roomテーブルから該当のユーザを削除.  
@@ -23,7 +23,7 @@ wevox values card:https://wevox.io/valuescard
 ## api_webox
 **Rails**APIサーバーのファイル．  
 
-[Model]  
+[Model]の依存関係  
 room.rb  
 ```ruby
 class Room < ApplicationRecord
@@ -38,16 +38,31 @@ user.rb
 ```ruby
 class User < ApplicationRecord
     has_one :room
+    has_many :user_card
+    has_many :card, through: :user_card
 end
 ```
 
+card.rb  
+```ruby
+class Card < ApplicationRecord
+    has_many :user_card
+    has_many :user, through: :user_card
+end
+```
+
+user_card.rb  
+```ruby
+class UserCard < ApplicationRecord
+    belongs_to :user, optional: true
+    belongs_to :card, optional: true
+end
+```
   
 [Action Cable:CHANNEL]  
 ・**ShareChannel**: 部屋選択画面で用いる  
 ・**TeamsChannel**: 部屋待機画面で用いる  
 ・**GameChannel**: ゲーム画面で用いる  
-  
-(Controllerは用いる必要がなくなったかも？)  
 
 ## webox_gameapp
 **React**のフロントアプリ．  
