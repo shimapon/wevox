@@ -108,14 +108,22 @@ class SelectRoom extends React.Component {
 
   // 部屋に参加する
   handleAlternate(event) {
+<<<<<<< Updated upstream
     if(this.state.roomname==""||this.state.username==""){
       console.log("参加アラート");
+=======
+    event.preventDefault();
+    let roomexistflag=false
+
+    if(this.state.roomname===""||this.state.username===""){
+>>>>>>> Stashed changes
       alert("空欄を埋めてください!");
       return;
     }
 
 
     // 参加時はフォームの部屋名に入っている文字列と同一の部屋からidを取得する
+<<<<<<< Updated upstream
     for(var i=0;i<this.state.message.length;i++){
       if(this.state.roomname===this.state.message[i].name){
         enterRoomid2=this.state.message[i].id
@@ -130,6 +138,40 @@ class SelectRoom extends React.Component {
     setTimeout(() => {
       this.handleToAppPage(enterRoomid2)
     }, 500)
+=======
+    // 部屋に4人入っていたら警告を出す
+    for(let room of this.state.rooms) {
+      if(this.state.roomname===room[1]){
+        roomexistflag=true
+        if(room[2] >= 4){
+          alert("この部屋は定員に達しています");
+          return;
+        }
+        else{
+          enterRoomid = room[0]
+          break;
+        }
+      }
+    }
+
+    if (!roomexistflag) {
+      alert("その名前の部屋は存在しません");
+      return;
+    }
+
+    if(window.confirm('部屋名:'+ this.state.roomname + ' に参加しますか？')){
+      event.preventDefault();
+      this.sendMessage(event);
+      setTimeout(() => {
+        this.handleToAppPage(enterRoomid)
+      }, 500)
+    }
+    else{
+      /* キャンセルの時の処理 */
+      return false;
+    }
+
+>>>>>>> Stashed changes
   }
 
   // サーバに部屋名とユーザ名を送信する

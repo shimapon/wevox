@@ -1,6 +1,11 @@
 import React from 'react';
 import '../../index.css';
 import { ActionCableConsumer } from 'react-actioncable-provider';
+<<<<<<< Updated upstream
+=======
+import Main from '../Organisms/Main';
+import Header from '../Organisms/Header';
+>>>>>>> Stashed changes
 
 
 // 親コンポーネント，Game
@@ -16,6 +21,7 @@ class WaitRoom extends React.Component {
         roomuser4:undefined,
       }
       this.onClick = this.onClick.bind(this);
+      this.handleBackPage = this.handleBackPage.bind(this)
     }
 
     // Component が Mount された後に実行されるメソッド
@@ -50,10 +56,28 @@ class WaitRoom extends React.Component {
 
     }
 
+    // 退出処理
+    handleBackPage(){
+
+        if(window.confirm("この部屋から退出しますか？")){
+            const message = [this.props.history.location.state.myname];
+
+            this.refs.teamsChannel.perform('back_toppage', {message})
+            this.props.history.push({
+                pathname: '/Top',
+             })
+        }
+        else{
+            /* キャンセルの時の処理 */
+            return false;
+        }
+    }
+
     // ゲーム画面に遷移する
     handleToGamePage() {
        console.log("ゲーム画面に変わります");
-       var roomuser=[this.state.roomuser1]
+       var roomuser=[]
+       if(this.state.roomuser1) roomuser.push(this.state.roomuser1)
        if(this.state.roomuser2) roomuser.push(this.state.roomuser2)
        if(this.state.roomuser3) roomuser.push(this.state.roomuser3)
        if(this.state.roomuser4) roomuser.push(this.state.roomuser4)
@@ -76,11 +100,21 @@ class WaitRoom extends React.Component {
         // 渡すのはなんでも良い
         const message = ["hoge"];
 
+<<<<<<< Updated upstream
         this.refs.teamsChannel.perform('move_gameapp', {message}) 
+=======
+            this.refs.teamsChannel.perform('move_gameapp', {message})
+        }
+        else{
+            /* キャンセルの時の処理 */
+            return false;
+        }
+>>>>>>> Stashed changes
     }
   
     
     render() {  
+<<<<<<< Updated upstream
         console.log("componentDidMount: WaitRoom");
         console.log("mynameは"+this.props.history.location.state.myname);
       return (
@@ -134,6 +168,33 @@ class WaitRoom extends React.Component {
                 <div className="startbutton">
                     <button onClick={this.onClick}>ゲーム開始</button>
                 </div>
+=======
+        return (
+            <div className="waitroom">
+                {
+                    this.acc || (this.acc = <ActionCableConsumer
+                        ref='teamsChannel'
+                        channel={{channel: 'TeamsChannel', id: this.props.id}}
+                        onConnected={this.handleConnected}
+                        onReceived={this.handleReceived}
+                    />)
+                }
+                <Header
+                    headertext={this.state.roomname}
+                    onClick={this.handleBackPage}
+                    text={"←"}
+                />
+                <Main
+                    roomusers={[
+                        this.state.roomuser1, 
+                        this.state.roomuser2, 
+                        this.state.roomuser3, 
+                        this.state.roomuser4,
+                    ]}
+                    onClick={this.onClick}
+                    text={"ゲーム開始"}
+                />
+>>>>>>> Stashed changes
             </div>
         </div>
       );

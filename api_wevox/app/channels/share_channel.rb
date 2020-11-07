@@ -25,6 +25,11 @@ class ShareChannel < ApplicationCable::Channel
       logger.info "user作成できなかった"
     end
 
+<<<<<<< Updated upstream
+=======
+    # Roomのuser_idで空いているところに左詰する
+    @enterRoom = Room.find_by(name: roomname)
+>>>>>>> Stashed changes
 
     # Roomのuser_idで空いているところに左詰する
     # もう少し上手い書き方がありそう?
