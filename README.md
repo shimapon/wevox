@@ -8,6 +8,10 @@ TechTrain:https://techbowl.co.jp/techtrain
 ミッションページ:https://techbowl.co.jp/techtrain/missions/8  
 wevox values card:https://wevox.io/valuescard
 
+# アプリのデプロイ先
+https://wevox.herokuapp.com/  
+
+
 ## Readme更新日
 11/14 12:00
 
