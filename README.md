@@ -9,13 +9,13 @@ TechTrain:https://techbowl.co.jp/techtrain
 wevox values card:https://wevox.io/valuescard
 
 ## Readme更新日
-11/7
+11/14 12:00
 
 ## 課題
-・退出処理 -> Roomテーブルから該当のユーザを削除.  
 ・ゲームでの順番が入室順となっており，ユーザ側で決められない  
 ・ゲーム画面で他のユーザの操作が見られていない．（カードゲームではあまりこういう例はないように感じる)  
 ・[本番環境]reloadするとアクセスできなくなる   
+・[本番環境]山札から2枚引いてしまう   
 
 ## アプリの動作
 ![wevox](https://user-images.githubusercontent.com/38938327/98434168-a23c8280-2110-11eb-911b-12822beb715a.gif)
@@ -98,6 +98,15 @@ User (Room user*_idと依存関係)
 |  2 | 次郎  | .  | .  |
 |...|...|...|...|
 
+UserCard (Card，Userと依存関係)
+| id | user_id | card_id | created_at | updated_at |
+| ------------- | ------------- | ------------- | ------------- | ------------- |
+|  1 | 1  | 2  | .  |.  |
+|  2 | 1  | 3  | .  |.  |
+|  3 | 2  | 17  | .  |.  |
+|  4 | 4  | 29  | .  |.  |
+|...|...|...|...|...|
+
 
 ## 画面設計
 <img src="https://user-images.githubusercontent.com/38938327/94405949-3d564a00-01ac-11eb-9e17-e34d28ac12e5.png" width=40%><img src="https://user-images.githubusercontent.com/38938327/94406086-75f62380-01ac-11eb-9e77-011088df279b.png" width=40%>
@@ -115,6 +124,7 @@ Atomic Designに基づく
 # 開発での考案
 
 ## User,Roomのテーブルを繋ぐ中間テーブルが必要？
+メリット：ゲームの人数に制限がない
 Userモデル：　User情報  
 Roomモデル：  4人以下が所属するRoom  
 Entryモデル：　どのUserがどのRoomに所属しているか  
