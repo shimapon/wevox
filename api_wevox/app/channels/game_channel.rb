@@ -15,9 +15,13 @@ class GameChannel < ApplicationCable::Channel
     deck = Card.pluck(:id).shuffle
     @room = Room.find(params[:id])
 
+
+    # 山札からRoomにいるユーザに5枚づつ配布して結果を受け取る
     user_hand, deck = @room.createReturnUsersHand(deck)
 
     deck_name = []
+    # 変数deckがidの配列なので，そこからカードタイトルを入れた配列を生成する．
+    # ※もっと楽にかけないか
     for card in deck
       deck_name.push(Card.find(card).title)
     end
@@ -27,7 +31,7 @@ class GameChannel < ApplicationCable::Channel
   end
 
 
-  # ゲーム中はフロントからのメッセージをそのまま送る
+  # ゲーム中はフロントからのメッセージをそのまま送る，横流し
   def handle_game(data)
     order = data["message"][0]
     user = data["message"][1]

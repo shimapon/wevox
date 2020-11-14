@@ -13,6 +13,9 @@ class ShareChannel < ApplicationCable::Channel
     stop_all_streams
   end
 
+
+  # クライアントにメッセージを送る
+  # ※記述をもう少し分けられる？
   def send_message(data)
 
     roomname = data["message"][0]

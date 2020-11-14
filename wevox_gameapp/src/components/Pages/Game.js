@@ -10,6 +10,7 @@ import { ActionCableConsumer } from 'react-actioncable-provider';
 let roomuser;
 // 自分の名前
 let myname;
+// roomuserの配列で自分の名前のindex
 let my_index=-1
 
 // 親コンポーネント，Game
@@ -36,6 +37,8 @@ class Game extends React.Component {
       console.log("部屋に入っているユーザは")
       console.log(roomuser);
 
+
+      // 自分が最初の順番であるならば
       if (myname === roomuser[0]){
         // 1.5秒後，サーバにメッセージを送り，手札を取得する
         setTimeout(() => {
@@ -46,11 +49,16 @@ class Game extends React.Component {
 
     }
 
+    /* 以下frontのボタン操作時
+        サーバーに送る
+        メッセージの形式:[命令の値, 操作を行うユーザのindex, 引くor捨てるカード一枚]
+        命令 0:初めの全プレイヤーの手札取得(5枚づつ) 1: 山札から1枚引く 2:手札から1枚捨てる 3:トラッシュから1枚引く
+    */
+
     // 手札クリック時
     handleHandClick(i) {
 
       if (this.state.now_player !== my_index || this.state.cards.length !== 6){
-
         return;
       }
 
@@ -68,7 +76,6 @@ class Game extends React.Component {
       return;
     }
     
-
       this.setState({
         playstate:1,
       })
@@ -81,10 +88,8 @@ class Game extends React.Component {
     handleDeckClick(){
 
       if (this.state.now_player !== my_index || this.state.cards.length !== 5){
-
         return;
       }
-
 
       let deck = this.state.deck
       let top_card = deck.pop()
@@ -115,6 +120,7 @@ class Game extends React.Component {
       let card;
       let index;
 
+      /* 命令ごとの処理 */
       if (message[0]===0){
         this.setState({
           now_player:0,
@@ -123,7 +129,7 @@ class Game extends React.Component {
           owncards:message[2],
         })
       }
-      // 山札
+      // 山札から引いた
       else if (message[0]===1){
         card = message[2]
 
@@ -140,7 +146,7 @@ class Game extends React.Component {
           owncards:owncards,
         })
       }
-      // 手札
+      // 手札から捨てた
       else if (message[0]===2) {
         card = message[2]
 
@@ -177,7 +183,7 @@ class Game extends React.Component {
 
       }
 
-      // トラッシュ
+      // トラッシュから引いた
       else {
         card = message[2]
 
