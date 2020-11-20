@@ -22,7 +22,7 @@ https://wevox.herokuapp.com/
 ・[本番環境]山札から2枚引いてしまう   
 
 ## アプリの動作
-![wevox](https://user-images.githubusercontent.com/38938327/98434168-a23c8280-2110-11eb-911b-12822beb715a.gif)
+![wevox_game](https://user-images.githubusercontent.com/38938327/99771780-0584d680-2b4d-11eb-85c5-b0b85e15cce5.gif)
 
 ## api_webox
 **Rails**APIサーバーのファイル．  
@@ -128,7 +128,7 @@ Atomic Designに基づく
 # 開発での考案
 
 ## User,Roomのテーブルを繋ぐ中間テーブルが必要？
-メリット：ゲームの人数に制限がない
+メリット：ゲームの人数に制限がない  
 Userモデル：　User情報  
 Roomモデル：  4人以下が所属するRoom  
 Entryモデル：　どのUserがどのRoomに所属しているか  
