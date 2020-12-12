@@ -26,6 +26,11 @@ class ShareChannel < ApplicationCable::Channel
       logger.info "user作成できた"
     else
       logger.info "user作成できなかった"
+
+      # エラー処理
+      logger.info user.errors.full_messages
+      errorhandling()
+      return false
     end
 
     # Roomのuser_idで空いているところに左詰する
@@ -41,10 +46,22 @@ class ShareChannel < ApplicationCable::Channel
         logger.info "room作成できた"
       else
         logger.info "room作成できなかった"
+        
+        # エラー処理
+        logger.info user.errors.full_messages
+        errorhandling()
+        return false
       end
     end
 
     ActionCable.server.broadcast("share_channel", Room.all)
   end
+
+
+  # エラーの結果を返す
+  def errorhandling()
+    ActionCable.server.broadcast("share_channel", "入室に失敗しました．部屋名/ニックネームに間違いがないかご確認のうえ、再度操作してください。")
+  end
+
 
 end
