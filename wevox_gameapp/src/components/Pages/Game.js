@@ -131,6 +131,13 @@ class Game extends React.Component {
       }
       // 山札から引いた
       else if (message[0]===1){
+
+        // 本番環境で連続で2枚引いてしまう
+        // 受け取る人の手札枚数が5枚でなければ状況を更新しない
+        if (owncards[message[1]].length===5){
+          return;
+        }
+
         card = message[2]
 
         // 該当のカードを山札から削除

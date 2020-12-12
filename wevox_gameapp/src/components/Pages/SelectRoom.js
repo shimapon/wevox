@@ -43,6 +43,12 @@ class SelectRoom extends React.Component {
     console.log("SelectRoom:messages来た: ");
     console.log(messages);
 
+    // 部屋かユーザが作成できない時
+    if(typeof messages === 'string'){
+      alert(messages)
+      return;
+    }
+
 
     // 作成されている部屋がない場合
     if(messages.length===0){
