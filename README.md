@@ -1,31 +1,44 @@
-# wevox
+# wevox value card
 TechTrainのmissionです．
 
 > アトラエの組織改善プラットフォーム「wevox」(ウィボックス)から発売している  
 >「wevox values card」をオンラインでプレイできるように開発していただきます。
 
-TechTrain:https://techbowl.co.jp/techtrain  
+**React + Rails**
+
+TechTrainについて:https://techbowl.co.jp/techtrain  
 ミッションページ:https://techbowl.co.jp/techtrain/missions/8  
 wevox values card:https://wevox.io/valuescard
+
+# ミッション完了しました!
+<img src="https://user-images.githubusercontent.com/38938327/105616951-1e945700-5e1e-11eb-8861-356eaec78e33.png" width=60%>
+
 
 # アプリのデプロイ先
 https://wevox.herokuapp.com/  
 
 
 ## Readme更新日
-11/14 12:00
+2021/1/24
 
 ## 課題
 ・ゲームでの順番が入室順となっており，ユーザ側で決められない  
 ・ゲーム画面で他のユーザの操作が見られていない．（カードゲームではあまりこういう例はないように感じる)  
-・[本番環境]reloadするとアクセスできなくなる   
-・[本番環境]山札から2枚引いてしまう   
+・[本番環境]reloadするとアクセスできなくなる     
 
 ## アプリの動作
 ![wevox_game](https://user-images.githubusercontent.com/38938327/99771780-0584d680-2b4d-11eb-85c5-b0b85e15cce5.gif)
 
+# リポジトリについて
+
 ## api_webox
 **Rails**APIサーバーのファイル．  
+
+[Action Cable:CHANNEL]  
+・**ShareChannel**: 部屋選択画面で用いる  
+・**TeamsChannel**: 部屋待機画面で用いる  
+・**GameChannel**: ゲーム画面で用いる 
+
 
 [Model]の依存関係  
 room.rb  
@@ -61,12 +74,7 @@ class UserCard < ApplicationRecord
     belongs_to :user, optional: true
     belongs_to :card, optional: true
 end
-```
-  
-[Action Cable:CHANNEL]  
-・**ShareChannel**: 部屋選択画面で用いる  
-・**TeamsChannel**: 部屋待機画面で用いる  
-・**GameChannel**: ゲーム画面で用いる  
+``` 
 
 ## webox_gameapp
 **React**のフロントアプリ．  
@@ -115,10 +123,6 @@ UserCard (Card，Userと依存関係)
 ## 画面設計
 <img src="https://user-images.githubusercontent.com/38938327/94405949-3d564a00-01ac-11eb-9e17-e34d28ac12e5.png" width=40%><img src="https://user-images.githubusercontent.com/38938327/94406086-75f62380-01ac-11eb-9e77-011088df279b.png" width=40%>
 <img src="https://user-images.githubusercontent.com/38938327/94406093-78f11400-01ac-11eb-98ec-66aa90a6f710.png" width=40%><img src="https://user-images.githubusercontent.com/38938327/94406099-7b536e00-01ac-11eb-9bee-9e9e4ffccc5b.png" width=40%>
-
-
-## サーバとの通信フロー
-<img src="https://user-images.githubusercontent.com/38938327/94406729-6aefc300-01ad-11eb-8599-5f92b0e0366a.png" width=40%>
 
 ## コンポーネント設計  
 Atomic Designに基づく  
